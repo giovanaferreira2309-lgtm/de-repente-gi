@@ -151,6 +151,33 @@ export const RANKING = [
   { rank: 3, ...PARTICIPANTS[2], badge: '🥉' },
   { rank: 4, ...PARTICIPANTS[3], badge: null },
   { rank: 5, ...PARTICIPANTS[4], badge: null },
+  { rank: 6, ...PARTICIPANTS[5], badge: null },
+  { rank: 7, ...PARTICIPANTS[6], badge: null },
+  { rank: 8, id: 'user-giovana', name: 'Giovana', username: '@giovana.online', avatar: 'https://i.pravatar.cc/150?img=47', completedDays: [1,2,3,4], streak: 4, currentDay: 5, badge: null },
+]
+
+export const ACHIEVEMENTS = [
+  { id: 'primeiro-passo', title: 'Primeiro Passo', description: 'Completou o Dia 1 do desafio', emoji: '👋', condition: (days) => days.includes(1), category: 'início' },
+  { id: 'semana-um', title: 'Semana Completa', description: 'Completou os 7 primeiros dias', emoji: '🌟', condition: (days) => days.length >= 7, category: 'progresso' },
+  { id: 'duas-semanas', title: 'Duas Semanas!', description: 'Completou 14 dias seguidos', emoji: '💫', condition: (days) => days.length >= 14, category: 'progresso' },
+  { id: 'campea', title: 'Campeã!', description: 'Completou todos os 21 dias', emoji: '🏆', condition: (days) => days.length >= 21, category: 'fim' },
+  { id: 'criadora', title: 'Criadora de Conteúdo', description: 'Completou a tarefa de Primeiro Conteúdo (Dia 4)', emoji: '📝', condition: (days) => days.includes(4), category: 'conteúdo' },
+  { id: 'marca-pessoal', title: 'Marca Pessoal', description: 'Completou a tarefa de Bio Profissional (Dia 3)', emoji: '✍️', condition: (days) => days.includes(3), category: 'marca pessoal' },
+  { id: 'negociante', title: 'Negociante Nata', description: 'Completou as tarefas de negócio (Dias 8 e 10)', emoji: '💰', condition: (days) => days.includes(8) && days.includes(10), category: 'negócio' },
+  { id: 'vendedora', title: 'Primeira Oferta', description: 'Completou a tarefa de Primeira Oferta (Dia 11)', emoji: '🛍️', condition: (days) => days.includes(11), category: 'vendas' },
+  { id: 'meio-caminho', title: 'Meio Caminho', description: 'Chegou na metade do desafio (Dia 14)', emoji: '🎯', condition: (days) => days.includes(14), category: 'progresso' },
+  { id: 'conectora', title: 'Conectora', description: 'Completou a tarefa de Conexões Reais (Dia 6)', emoji: '🤝', condition: (days) => days.includes(6), category: 'comunidade' },
+  { id: 'corajosa', title: 'Corajosa', description: 'Completou a tarefa de Superar um Medo (Dia 18)', emoji: '💪', condition: (days) => days.includes(18), category: 'mentalidade' },
+  { id: 'estrategista', title: 'Estrategista', description: 'Completou a tarefa de Estratégia de Crescimento (Dia 19)', emoji: '📈', condition: (days) => days.includes(19), category: 'estratégia' },
+]
+
+export const NOTIFICATIONS = [
+  { id: 'n1', type: 'reaction', text: 'Ana Luiza reagiu com 🔥 no seu post do Dia 4', avatar: 'https://i.pravatar.cc/150?img=1', timestamp: '2024-01-18T14:00:00', read: false },
+  { id: 'n2', type: 'comment', text: 'Marina Costa comentou: "Que incrível! Parabéns 💜"', avatar: 'https://i.pravatar.cc/150?img=5', timestamp: '2024-01-18T13:30:00', read: false },
+  { id: 'n3', type: 'streak', text: 'Você está com 4 dias de streak! Continue assim 🔥', avatar: null, timestamp: '2024-01-18T09:00:00', read: false },
+  { id: 'n4', type: 'reaction', text: 'Beatriz Alves reagiu com ✨ no seu post', avatar: 'https://i.pravatar.cc/150?img=9', timestamp: '2024-01-17T20:00:00', read: true },
+  { id: 'n5', type: 'community', text: 'Priscila Nunes acabou de entrar na comunidade 👋', avatar: 'https://i.pravatar.cc/150?img=32', timestamp: '2024-01-17T15:00:00', read: true },
+  { id: 'n6', type: 'achievement', text: 'Nova conquista desbloqueada: Marca Pessoal ✍️', avatar: null, timestamp: '2024-01-16T11:00:00', read: true },
 ]
 
 export const MOCK_COMMENTS = {
