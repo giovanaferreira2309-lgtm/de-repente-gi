@@ -151,6 +151,63 @@ export const RANKING = [
   { rank: 3, ...PARTICIPANTS[2], badge: '🥉' },
   { rank: 4, ...PARTICIPANTS[3], badge: null },
   { rank: 5, ...PARTICIPANTS[4], badge: null },
+  { rank: 6, ...PARTICIPANTS[5], badge: null },
+  { rank: 7, ...PARTICIPANTS[6], badge: null },
+  { rank: 8, id: 'user-giovana', name: 'Giovana', username: '@giovana.online', avatar: 'https://i.pravatar.cc/150?img=47', completedDays: [1,2,3,4], streak: 4, currentDay: 5, badge: null },
+]
+
+export const ACHIEVEMENTS = [
+  { id: 'primeiro-passo', title: 'Primeiro Passo', description: 'Completou o Dia 1 do desafio', emoji: '👋', condition: (days) => days.includes(1), category: 'início' },
+  { id: 'semana-um', title: 'Semana Completa', description: 'Completou os 7 primeiros dias', emoji: '🌟', condition: (days) => days.length >= 7, category: 'progresso' },
+  { id: 'duas-semanas', title: 'Duas Semanas!', description: 'Completou 14 dias seguidos', emoji: '💫', condition: (days) => days.length >= 14, category: 'progresso' },
+  { id: 'campea', title: 'Campeã!', description: 'Completou todos os 21 dias', emoji: '🏆', condition: (days) => days.length >= 21, category: 'fim' },
+  { id: 'criadora', title: 'Criadora de Conteúdo', description: 'Completou a tarefa de Primeiro Conteúdo (Dia 4)', emoji: '📝', condition: (days) => days.includes(4), category: 'conteúdo' },
+  { id: 'marca-pessoal', title: 'Marca Pessoal', description: 'Completou a tarefa de Bio Profissional (Dia 3)', emoji: '✍️', condition: (days) => days.includes(3), category: 'marca pessoal' },
+  { id: 'negociante', title: 'Negociante Nata', description: 'Completou as tarefas de negócio (Dias 8 e 10)', emoji: '💰', condition: (days) => days.includes(8) && days.includes(10), category: 'negócio' },
+  { id: 'vendedora', title: 'Primeira Oferta', description: 'Completou a tarefa de Primeira Oferta (Dia 11)', emoji: '🛍️', condition: (days) => days.includes(11), category: 'vendas' },
+  { id: 'meio-caminho', title: 'Meio Caminho', description: 'Chegou na metade do desafio (Dia 14)', emoji: '🎯', condition: (days) => days.includes(14), category: 'progresso' },
+  { id: 'conectora', title: 'Conectora', description: 'Completou a tarefa de Conexões Reais (Dia 6)', emoji: '🤝', condition: (days) => days.includes(6), category: 'comunidade' },
+  { id: 'corajosa', title: 'Corajosa', description: 'Completou a tarefa de Superar um Medo (Dia 18)', emoji: '💪', condition: (days) => days.includes(18), category: 'mentalidade' },
+  { id: 'estrategista', title: 'Estrategista', description: 'Completou a tarefa de Estratégia de Crescimento (Dia 19)', emoji: '📈', condition: (days) => days.includes(19), category: 'estratégia' },
+]
+
+export const NOTIFICATIONS = [
+  { id: 'n1', type: 'reaction', text: 'Ana Luiza reagiu com 🔥 no seu post do Dia 4', avatar: 'https://i.pravatar.cc/150?img=1', timestamp: '2024-01-18T14:00:00', read: false },
+  { id: 'n2', type: 'comment', text: 'Marina Costa comentou: "Que incrível! Parabéns 💜"', avatar: 'https://i.pravatar.cc/150?img=5', timestamp: '2024-01-18T13:30:00', read: false },
+  { id: 'n3', type: 'streak', text: 'Você está com 4 dias de streak! Continue assim 🔥', avatar: null, timestamp: '2024-01-18T09:00:00', read: false },
+  { id: 'n4', type: 'reaction', text: 'Beatriz Alves reagiu com ✨ no seu post', avatar: 'https://i.pravatar.cc/150?img=9', timestamp: '2024-01-17T20:00:00', read: true },
+  { id: 'n5', type: 'community', text: 'Priscila Nunes acabou de entrar na comunidade 👋', avatar: 'https://i.pravatar.cc/150?img=32', timestamp: '2024-01-17T15:00:00', read: true },
+  { id: 'n6', type: 'achievement', text: 'Nova conquista desbloqueada: Marca Pessoal ✍️', avatar: null, timestamp: '2024-01-16T11:00:00', read: true },
+]
+
+export const PRE_CHALLENGE_TASKS = [
+  { day: 1, title: 'Escolha sua plataforma', description: 'Instagram, TikTok, YouTube ou Pinterest? Escolha UMA plataforma onde você vai focar os próximos 21 dias. Não tente estar em todas ao mesmo tempo.', emoji: '📱', category: 'estratégia', tip: 'Dica: se você gosta de falar, vá pro TikTok ou YouTube. Se prefere escrever e mostrar imagens, Instagram.' },
+  { day: 2, title: 'Defina seu nicho (no papel)', description: 'Sobre o que você vai falar? Escreva 3 temas que você domina ou ama. Depois escolha 1. Não precisa ser perfeito — precisa ser seu.', emoji: '🎯', category: 'nicho', tip: 'Dica: pense no que as pessoas te pedem conselho. Isso é o seu nicho.' },
+  { day: 3, title: 'Monte ou atualize seu perfil', description: 'Foto de perfil profissional, nome claro, bio que diz quem você é e o que você oferece. Simples. Direto. Sem floreio.', emoji: '✨', category: 'perfil', tip: 'Dica: sua bio deve responder "quem sou, o que faço e pra quem".' },
+  { day: 4, title: 'Colete suas referências', description: 'Salve 5 perfis que te inspiram no seu nicho. Observe o que eles fazem de diferente, o tom de voz, o tipo de conteúdo. Você não vai copiar — vai entender o que funciona.', emoji: '🗂️', category: 'pesquisa', tip: 'Dica: crie uma pasta no seu celular chamada "referências" e salve os posts que você admira.' },
+  { day: 5, title: 'Organize seu ambiente de criação', description: 'Onde você vai criar? Arrume um cantinho com boa iluminação, limpo, que te faça sentir profissional. Não precisa ser um estúdio — precisa ser intencional.', emoji: '💡', category: 'ambiente', tip: 'Dica: luz natural de frente é gratuita e fica incrível. Janela aberta + celular na mão já é suficiente.' },
+  { day: 6, title: 'Monte um banco de ideias', description: 'Anote 10 ideias de conteúdo que você poderia criar sobre o seu tema. Não filtre agora. Só anote. Elas serão o combustível dos seus primeiros 21 dias.', emoji: '💭', category: 'conteúdo', tip: 'Dica: use o bloco de notas do celular, Notion, ou até papel. O importante é não deixar as ideias só na cabeça.' },
+  { day: 7, title: 'Avise as pessoas que você vai começar', description: 'Conte pra alguém de confiança que você está prestes a dar esse passo. Dizer em voz alta cria compromisso. E compromisso cria ação.', emoji: '🗣️', category: 'comprometimento', tip: 'Dica: pode ser uma amiga, familiar ou até uma postagem nos stories dizendo que algo novo está vindo.' },
+]
+
+export const BIBLIOTECA_LINKS = [
+  { id: 'l1', title: 'Como escrever uma bio que converte', url: '#', description: 'Passo a passo para criar uma bio profissional que atrai o cliente certo', category: 'perfil', emoji: '✍️' },
+  { id: 'l2', title: 'Guia de hashtags para iniciantes', url: '#', description: 'Como usar hashtags sem parecer spam e alcançar pessoas novas', category: 'crescimento', emoji: '🔖' },
+  { id: 'l3', title: 'Canva para criadores de conteúdo', url: '#', description: 'Templates gratuitos e como criar artes profissionais sem ser designer', category: 'ferramentas', emoji: '🎨' },
+  { id: 'l4', title: 'Como precificar seus serviços', url: '#', description: 'Planilha e método para calcular quanto cobrar pelo seu trabalho', category: 'negócio', emoji: '💰' },
+  { id: 'l5', title: 'Roteiro de stories que engajam', url: '#', description: 'Os 5 tipos de stories que geram mais respostas e salvamentos', category: 'conteúdo', emoji: '📱' },
+  { id: 'l6', title: 'Ferramenta de agendamento gratuita', url: '#', description: 'Agende seus posts com antecedência e mantenha a consistência', category: 'ferramentas', emoji: '📅' },
+  { id: 'l7', title: 'Como gravar vídeos com o celular', url: '#', description: 'Configurações, iluminação e edição básica para vídeos profissionais', category: 'produção', emoji: '🎬' },
+  { id: 'l8', title: 'Copywriting para iniciantes', url: '#', description: 'Como escrever legendas que param o scroll e geram ação', category: 'conteúdo', emoji: '📝' },
+]
+
+export const BIBLIOTECA_VIDEOS = [
+  { id: 'v1', title: 'Como definir seu nicho em 30 minutos', duration: '18:42', thumbnail: 'https://images.unsplash.com/photo-1611532736597-de2d4265fba3?w=400&h=225&fit=crop', category: 'estratégia', description: 'O método dos 3 círculos para encontrar o nicho perfeito para você' },
+  { id: 'v2', title: 'Seu primeiro conteúdo do zero', duration: '24:10', thumbnail: 'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=400&h=225&fit=crop', category: 'conteúdo', description: 'Do medo à publicação: como criar e postar seu primeiro vídeo/post' },
+  { id: 'v3', title: 'Criando uma rotina de criação sustentável', duration: '15:33', thumbnail: 'https://images.unsplash.com/photo-1484480974693-6ca0a78fb36b?w=400&h=225&fit=crop', category: 'produtividade', description: 'Como criar conteúdo todo dia sem se esgotar ou ficar sem ideias' },
+  { id: 'v4', title: 'Instagram: algoritmo e crescimento orgânico', duration: '31:05', thumbnail: 'https://images.unsplash.com/photo-1611162617213-7d7a39e9b1d7?w=400&h=225&fit=crop', category: 'crescimento', description: 'O que o algoritmo realmente prioriza e como usar isso a seu favor' },
+  { id: 'v5', title: 'Sua primeira oferta: como criar e vender', duration: '22:18', thumbnail: 'https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=400&h=225&fit=crop', category: 'vendas', description: 'Passo a passo para criar um produto simples e começar a vender' },
+  { id: 'v6', title: 'Branding pessoal para quem está começando', duration: '19:47', thumbnail: 'https://images.unsplash.com/photo-1561070791-2526d30994b5?w=400&h=225&fit=crop', category: 'marca pessoal', description: 'Como criar uma identidade visual e verbal coerente sem gastar nada' },
 ]
 
 export const MOCK_COMMENTS = {

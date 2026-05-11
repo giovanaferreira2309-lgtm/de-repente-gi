@@ -1,5 +1,5 @@
 import { useParams, Link } from 'react-router-dom'
-import { CURRENT_USER, PARTICIPANTS, FEED_POSTS, CHALLENGE_TASKS } from '../data/mockData'
+import { CURRENT_USER, PARTICIPANTS, FEED_POSTS, CHALLENGE_TASKS, ACHIEVEMENTS } from '../data/mockData'
 import Avatar from '../components/Avatar'
 import Badge from '../components/Badge'
 
@@ -133,6 +133,59 @@ export default function Profile() {
               <DayBadge key={day} day={day} completed={user.completedDays?.includes(day)} />
             ))}
           </div>
+        </div>
+
+        {/* Achievements */}
+        <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-5 mb-6">
+          <div className="flex items-center justify-between mb-4">
+            <h2 className="font-bold text-gray-900">Conquistas</h2>
+            <Link to="/ranking" className="text-xs text-lilac-600 hover:text-lilac-700 font-medium transition-colors">
+              Ver ranking →
+            </Link>
+          </div>
+          {(() => {
+            const earned = ACHIEVEMENTS.filter(a => a.condition(user.completedDays || []))
+            const locked = ACHIEVEMENTS.filter(a => !a.condition(user.completedDays || []))
+            return (
+              <>
+                {earned.length > 0 && (
+                  <div className="mb-4">
+                    <p className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-2">Desbloqueadas ({earned.length})</p>
+                    <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
+                      {earned.map(a => (
+                        <div key={a.id} className="flex items-center gap-2 bg-lilac-50 border border-lilac-100 rounded-xl p-2.5">
+                          <span className="text-xl flex-shrink-0">{a.emoji}</span>
+                          <div className="min-w-0">
+                            <p className="text-xs font-bold text-lilac-700 leading-tight">{a.title}</p>
+                            <p className="text-[10px] text-gray-400 leading-tight truncate">{a.description}</p>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+                {locked.length > 0 && (
+                  <div>
+                    <p className="text-xs font-semibold text-gray-400 uppercase tracking-wide mb-2">Ainda não conquistadas ({locked.length})</p>
+                    <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
+                      {locked.map(a => (
+                        <div key={a.id} className="flex items-center gap-2 bg-gray-50 border border-dashed border-gray-200 rounded-xl p-2.5 opacity-50">
+                          <span className="text-xl flex-shrink-0 grayscale">{a.emoji}</span>
+                          <div className="min-w-0">
+                            <p className="text-xs font-bold text-gray-500 leading-tight">{a.title}</p>
+                            <p className="text-[10px] text-gray-400 leading-tight truncate">{a.description}</p>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+                {earned.length === 0 && locked.length === 0 && (
+                  <p className="text-sm text-gray-400 text-center py-4">Complete os dias do desafio para desbloquear conquistas 💜</p>
+                )}
+              </>
+            )
+          })()}
         </div>
 
         {/* Posts */}
