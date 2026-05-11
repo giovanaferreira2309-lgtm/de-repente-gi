@@ -1,8 +1,112 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
-import { CHALLENGE_TASKS, CURRENT_USER, FEED_POSTS, RANKING, MOCK_COMMENTS } from '../data/mockData'
+import { CHALLENGE_TASKS, CURRENT_USER, FEED_POSTS, RANKING, MOCK_COMMENTS, PRE_CHALLENGE_TASKS } from '../data/mockData'
 import Avatar from '../components/Avatar'
 import Badge from '../components/Badge'
+
+// ─── Semana de Preparação ─────────────────────────────────────────────────────
+
+function PrepTaskCard({ task, completed, onComplete }) {
+  const [expanded, setExpanded] = useState(false)
+  return (
+    <div className={`rounded-2xl border-2 transition-all ${
+      completed ? 'bg-lilac-50 border-lilac-200' : 'bg-white border-gray-100 hover:border-lilac-200'
+    }`}>
+      <div className="flex items-center gap-3 p-4 cursor-pointer" onClick={() => setExpanded(v => !v)}>
+        <div className={`w-10 h-10 rounded-xl flex items-center justify-center text-xl flex-shrink-0 ${
+          completed ? 'gradient-bg' : 'bg-gray-100'
+        }`}>
+          {completed ? '✅' : task.emoji}
+        </div>
+        <div className="flex-1 min-w-0">
+          <div className="flex items-center gap-2">
+            <span className="text-[10px] font-bold text-lilac-500 bg-lilac-50 border border-lilac-100 px-1.5 py-0.5 rounded-full">Prep {task.day}</span>
+            <span className="text-xs font-semibold text-gray-400 capitalize">{task.category}</span>
+          </div>
+          <h3 className={`font-bold text-sm mt-0.5 ${completed ? 'text-lilac-700 line-through' : 'text-gray-900'}`}>
+            {task.title}
+          </h3>
+        </div>
+        <svg className={`w-4 h-4 text-gray-400 transition-transform flex-shrink-0 ${expanded ? 'rotate-180' : ''}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+        </svg>
+      </div>
+      {expanded && (
+        <div className="px-4 pb-4 animate-fade-in">
+          <p className="text-sm text-gray-600 leading-relaxed mb-3">{task.description}</p>
+          {task.tip && (
+            <div className="bg-lilac-50 border border-lilac-100 rounded-xl p-3 mb-3">
+              <p className="text-xs text-lilac-700 leading-snug">{task.tip}</p>
+            </div>
+          )}
+          {!completed && (
+            <button
+              onClick={() => onComplete(task.day)}
+              className="w-full gradient-bg text-white font-semibold text-sm py-2.5 rounded-xl hover:opacity-90 transition-opacity"
+            >
+              Marcar como feita ✓
+            </button>
+          )}
+        </div>
+      )}
+    </div>
+  )
+}
+
+function PrepSection() {
+  const [completedPrep, setCompletedPrep] = useState([1, 2, 3])
+
+  const completePrep = (day) => {
+    if (!completedPrep.includes(day)) setCompletedPrep(prev => [...prev, day])
+  }
+
+  const allDone = completedPrep.length === PRE_CHALLENGE_TASKS.length
+
+  return (
+    <div>
+      <div className="bg-gradient-to-r from-lilac-50 to-coral-50 border border-lilac-100 rounded-2xl p-5 mb-6">
+        <div className="flex items-start justify-between gap-4">
+          <div>
+            <h2 className="font-extrabold text-gray-900 text-lg mb-1">🗓️ Semana de Preparação</h2>
+            <p className="text-sm text-gray-600 leading-relaxed max-w-lg">
+              Antes de começar os 21 dias, você tem <strong>7 dias pra se organizar</strong>.
+              Sem essa base, até as melhores intenções viram mais uma coisa não feita.
+            </p>
+          </div>
+          <div className="text-center flex-shrink-0">
+            <div className="text-3xl font-extrabold gradient-text">{completedPrep.length}<span className="text-gray-300 text-xl">/7</span></div>
+            <div className="text-xs text-gray-400">concluídas</div>
+          </div>
+        </div>
+        <div className="mt-4 h-2 bg-white/60 rounded-full overflow-hidden">
+          <div
+            className="h-full gradient-bg rounded-full transition-all duration-700"
+            style={{ width: `${(completedPrep.length / 7) * 100}%` }}
+          />
+        </div>
+      </div>
+
+      {allDone && (
+        <div className="bg-green-50 border border-green-200 rounded-2xl p-4 mb-6 text-center animate-fade-in">
+          <div className="text-3xl mb-2">🎉</div>
+          <p className="font-bold text-green-800 mb-1">Preparação completa!</p>
+          <p className="text-sm text-green-600">Você está pronta pra começar os 21 dias. Vai lá! 💜</p>
+        </div>
+      )}
+
+      <div className="space-y-3">
+        {PRE_CHALLENGE_TASKS.map(task => (
+          <PrepTaskCard
+            key={task.day}
+            task={task}
+            completed={completedPrep.includes(task.day)}
+            onComplete={completePrep}
+          />
+        ))}
+      </div>
+    </div>
+  )
+}
 
 // ─── Day Tracker ────────────────────────────────────────────────────────────
 
@@ -408,33 +512,50 @@ export default function Community() {
           />
         </div>
 
-        {/* Mobile tabs */}
-        <div className="flex lg:hidden gap-2 mb-4 bg-white rounded-xl p-1 border border-gray-100">
-          {['feed', 'ranking'].map(tab => (
+        {/* Tabs (mobile e desktop) */}
+        <div className="flex gap-1 mb-6 bg-white rounded-xl p-1 border border-gray-100 overflow-x-auto scrollbar-hide">
+          {[
+            { id: 'preparacao', label: '🗓️ Preparação', mobileLabel: '🗓️ Prep' },
+            { id: 'feed', label: '📰 Feed', mobileLabel: '📰 Feed' },
+            { id: 'ranking', label: '🏆 Ranking', mobileLabel: '🏆' },
+          ].map(tab => (
             <button
-              key={tab}
-              onClick={() => setActiveTab(tab)}
-              className={`flex-1 py-2 text-sm font-semibold rounded-lg transition-all ${
-                activeTab === tab ? 'gradient-bg text-white shadow-sm' : 'text-gray-500 hover:text-gray-700'
+              key={tab.id}
+              onClick={() => setActiveTab(tab.id)}
+              className={`flex-shrink-0 flex-1 py-2 px-3 text-sm font-semibold rounded-lg transition-all whitespace-nowrap ${
+                activeTab === tab.id ? 'gradient-bg text-white shadow-sm' : 'text-gray-500 hover:text-gray-700'
               }`}
             >
-              {tab === 'feed' ? '📰 Feed' : '🏆 Ranking'}
+              <span className="hidden sm:inline">{tab.label}</span>
+              <span className="sm:hidden">{tab.mobileLabel}</span>
             </button>
           ))}
         </div>
 
-        {/* Two-column layout */}
-        <div className="flex gap-6">
-          {/* Feed */}
-          <div className={`flex-1 min-w-0 ${activeTab !== 'feed' ? 'hidden lg:block' : ''}`}>
-            <FeedSection filterDay={filterDay} setFilterDay={setFilterDay} />
+        {/* Preparação tab */}
+        {activeTab === 'preparacao' && (
+          <div className="max-w-2xl mx-auto">
+            <PrepSection />
           </div>
+        )}
 
-          {/* Ranking sidebar */}
-          <div className={`w-72 flex-shrink-0 ${activeTab !== 'ranking' ? 'hidden lg:block' : 'w-full'}`}>
-            <RankingSection />
+        {/* Feed + Ranking two-column layout */}
+        {activeTab !== 'preparacao' && (
+          <div className="flex gap-6">
+            <div className={`flex-1 min-w-0 ${activeTab !== 'feed' ? 'hidden' : ''}`}>
+              <FeedSection filterDay={filterDay} setFilterDay={setFilterDay} />
+            </div>
+            <div className={`flex-shrink-0 ${activeTab !== 'ranking' ? 'hidden lg:block w-72' : 'w-full'}`}>
+              <RankingSection />
+            </div>
+            {/* Show feed on desktop even when ranking tab is active */}
+            {activeTab === 'ranking' && (
+              <div className="hidden lg:block flex-1 min-w-0 order-first">
+                <FeedSection filterDay={filterDay} setFilterDay={setFilterDay} />
+              </div>
+            )}
           </div>
-        </div>
+        )}
       </div>
     </div>
   )

@@ -174,8 +174,56 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Preview do Feed */}
+      {/* Preview dos Desafios */}
       <section className="bg-gray-50 py-20 px-4">
+        <div className="max-w-4xl mx-auto">
+          <div className="text-center mb-10">
+            <h2 className="text-2xl md:text-3xl font-extrabold text-gray-900 mb-3">
+              O que você vai fazer nos 21 dias
+            </h2>
+            <p className="text-gray-500 max-w-xl mx-auto">
+              Cada tarefa foi criada pra ser pequena o suficiente pra você fazer hoje — e grande o suficiente pra mudar alguma coisa.
+            </p>
+          </div>
+
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3 mb-8">
+            {[
+              { day: 1, emoji: '👋', title: 'Apresente-se', desc: 'Sua primeira postagem na comunidade. Quem você é e por que está aqui.' },
+              { day: 3, emoji: '✍️', title: 'Bio profissional', desc: 'Crie ou atualize sua bio. Mostre quem você é como profissional.' },
+              { day: 4, emoji: '📝', title: 'Primeiro conteúdo', desc: 'Publique seu primeiro post real sobre o tema que você quer monetizar.' },
+              { day: 8, emoji: '💡', title: 'Proposta de valor', desc: 'Uma frase que explica o que você oferece e pra quem. Seu elevator pitch.' },
+              { day: 11, emoji: '🛍️', title: 'Primeira oferta', desc: 'Crie sua primeira oferta real — produto, serviço ou pacote.' },
+              { day: 18, emoji: '💪', title: 'Superar um medo', desc: 'Faça UMA coisa que te dá medo. A que está te travando há mais tempo.' },
+            ].map(({ day, emoji, title, desc }) => (
+              <div key={day} className="bg-white rounded-2xl border border-gray-100 p-4 shadow-sm flex items-start gap-3 card-hover">
+                <div className="w-10 h-10 gradient-bg rounded-xl flex items-center justify-center text-xl flex-shrink-0">
+                  {emoji}
+                </div>
+                <div className="min-w-0">
+                  <div className="flex items-center gap-2 mb-1">
+                    <span className="text-[10px] font-bold text-lilac-500 bg-lilac-50 px-1.5 py-0.5 rounded-full">Dia {day}</span>
+                  </div>
+                  <h3 className="font-bold text-gray-900 text-sm leading-tight">{title}</h3>
+                  <p className="text-xs text-gray-500 mt-1 leading-snug">{desc}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <div className="text-center">
+            <p className="text-sm text-gray-400 mb-4">+ 15 outras tarefas que vão te tirar da teoria de vez</p>
+            <Link
+              to="/comunidade"
+              className="inline-block gradient-bg text-white font-semibold px-6 py-3 rounded-full hover:opacity-90 transition-opacity shadow-sm"
+            >
+              Ver todos os 21 desafios →
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* Preview do Feed */}
+      <section className="py-20 px-4">
         <div className="max-w-2xl mx-auto">
           <div className="text-center mb-10">
             <h2 className="text-2xl md:text-3xl font-extrabold text-gray-900 mb-3">

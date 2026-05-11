@@ -102,6 +102,16 @@ export default function Navbar() {
           >
             🏆 <span className="hidden sm:inline">Ranking</span>
           </Link>
+          <Link
+            to="/biblioteca"
+            className={`text-sm font-medium px-3 py-1.5 rounded-full transition-all ${
+              location.pathname === '/biblioteca'
+                ? 'bg-lilac-100 text-lilac-700'
+                : 'text-gray-600 hover:text-lilac-600'
+            }`}
+          >
+            📚 <span className="hidden sm:inline">Biblioteca</span>
+          </Link>
 
           {/* Notifications bell */}
           <div className="relative">
