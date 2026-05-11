@@ -71,6 +71,40 @@ Todo o dado vem de `src/data/mockData.js`. Funcionalidades implementadas:
 2. **Pagamento** — acesso ao desafio via assinatura
 3. **Gamificação** — novos desafios e conquistas dinâmicas
 
+## Fluxo de Trabalho
+
+> Estas instruções assumem que você é uma pessoa de marketing sem experiência prévia com desenvolvimento de software. Siga os passos abaixo — Claude vai cuidar dos detalhes técnicos.
+
+### Começando uma nova funcionalidade
+
+Antes de qualquer alteração, Claude deve:
+1. Criar uma nova branch com o prefixo `feat/` (ex: `feat/pagina-de-pagamento`)
+2. Todas as mudanças devem ser feitas **nessa branch**, nunca diretamente na `main`
+
+Você não precisa saber o que é uma branch — pense nela como um rascunho separado do projeto. O site ao vivo não é afetado enquanto trabalhamos no rascunho.
+
+### Finalizando um bloco de trabalho
+
+Ao concluir uma sessão de alterações, Claude deve **sempre perguntar**:
+
+> "As alterações estão prontas. Deseja publicar essa funcionalidade? Posso abrir um Pull Request da branch `feat/...` para a `main`, o que vai iniciar o processo de deploy no Vercel."
+
+Só abrir o Pull Request (PR) **se a resposta for sim**. Um PR é como pedir uma revisão antes de publicar — você aprova, e o site é atualizado automaticamente via Vercel.
+
+### Resumo do ciclo
+
+```
+Nova feature pedida
+      ↓
+Claude cria feat/nome-da-feature
+      ↓
+Alterações feitas e commitadas na branch
+      ↓
+Claude pergunta se quer fazer deploy
+      ↓
+Se sim → abre PR feat/* → main → Vercel publica
+```
+
 ## Filosofia
 
 Simples e direto. Não abstrair antes de precisar. Iterar rápido sem preparar para hipotéticos.
