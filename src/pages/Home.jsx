@@ -205,29 +205,37 @@ export default function Home() {
       {/* Como funciona */}
       <section id="como-funciona" className="py-20 px-4">
         <div className="max-w-3xl mx-auto">
-          <div className="text-center mb-12">
+          <div className="text-center mb-6">
             <h2 className="text-3xl font-extrabold text-gray-900 mb-3">Como funciona?</h2>
-            <p className="text-gray-500">Simples o suficiente pra você começar hoje.</p>
+            <p className="text-gray-500 text-lg max-w-xl mx-auto leading-relaxed">
+              Você já sabe o que fazer. O desafio existe pra te fazer <strong className="text-gray-800">fazer</strong>.
+            </p>
+          </div>
+
+          <div className="bg-lilac-50 border border-lilac-100 rounded-2xl px-6 py-4 mb-10 text-center">
+            <p className="text-lilac-800 text-sm leading-relaxed">
+              💜 Esse desafio é pra quem vive pensando <em>"eu sei o que fazer, mas não faço"</em>. Em 21 dias, você vai parar de planejar e começar a existir nas redes — do jeito que só você sabe.
+            </p>
           </div>
 
           <div className="space-y-6">
             {[
               {
                 step: '01',
-                title: 'Entrou',
-                desc: 'Você paga, entra na plataforma e é recebida pela comunidade. Sem burocracia. Já tem acesso ao Dia 1.',
+                title: 'Você entra. E para de esperar.',
+                desc: 'Sem onboarding longo. Sem "assista as aulas antes". No momento em que você entra, o Dia 1 já está te esperando. A única coisa que muda entre hoje e amanhã é você ter apertado o botão.',
                 color: 'from-lilac-400 to-lilac-500',
               },
               {
                 step: '02',
-                title: 'Fez a tarefa',
-                desc: 'Todo dia uma tarefa nova é desbloqueada. São pequenas, práticas e progressivas — pra te tirar da teoria.',
+                title: 'Você usa o que já tem dentro de você.',
+                desc: 'Cada dia traz uma tarefa pequena, prática e possível — criada pra ativar o que você já sabe, mas nunca colocou pra fora. Não é sobre aprender algo novo. É sobre transformar em conteúdo real o conhecimento que você carrega há anos e nunca publicou.',
                 color: 'from-coral-400 to-coral-500',
               },
               {
                 step: '03',
-                title: 'Postou aqui',
-                desc: 'Você posta seu resultado no feed da comunidade. Recebe reações, comentários, apoio. E segue pro próximo dia.',
+                title: 'Você posta. E o hábito nasce.',
+                desc: 'Você compartilha aqui na comunidade. Recebe apoio real de mulheres que estão no mesmo caminho. E quando o Dia 21 chegar, você vai olhar pra trás e ver uma linha do tempo de conquistas — um perfil ativo, uma voz, uma rotina que não existia antes.',
                 color: 'from-lilac-500 to-coral-400',
               },
             ].map(({ step, title, desc, color }) => (
