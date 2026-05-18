@@ -289,7 +289,7 @@
       margin-bottom: -0.4vw;
     }
 
-    /* palavra-monumento */
+    /* palavra-monumento — fica POR CIMA das flores */
     .hero-bigword {
       font-family: 'Garet', 'Glacial Indifference', sans-serif;
       font-weight: 800;
@@ -300,7 +300,7 @@
       text-align: center;
       margin: 0;
       position: relative;
-      z-index: 1;
+      z-index: 5;
       text-transform: lowercase;
     }
     .hero-bigword .bw-accent {
@@ -341,11 +341,10 @@
     .hero-image {
       position: relative;
       z-index: 2;
-      width: 102%;
-      height: 102%;
-      background: url('/consultoria-img-1.jpg') center center / cover no-repeat;
-      border-radius: 50%;
-      box-shadow: 0 20px 50px -20px rgba(74,40,48,0.3);
+      width: 92%;
+      height: 92%;
+      object-fit: contain;
+      filter: drop-shadow(0 18px 28px rgba(74,40,48,0.35));
     }
 
     /* pontinhos decorativos como na referência */
@@ -1539,7 +1538,7 @@
       </aside>
 
       <div class="hero-circle-wrap reveal">
-        <div class="hero-image" role="img" aria-label="Consultoria De Repente Online"></div>
+        <img src="/lirios.png" alt="Lírios rosa" class="hero-image" onerror="this.style.display='none'" />
       </div>
 
       <aside class="hero-flank right reveal">
