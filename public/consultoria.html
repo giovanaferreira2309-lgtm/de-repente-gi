@@ -1,0 +1,1960 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>De Repente Online - Consultoria</title>
+  <meta name="description" content="Consultoria de marketing digital com Giovana Ferreira. 1h30 só sobre você, seu perfil e o caminho que faz sentido pra você." />
+
+  <!-- Garet (títulos) + Glacial Indifference (corpo) -->
+  <link rel="preconnect" href="https://fonts.cdnfonts.com" crossorigin />
+  <link href="https://fonts.cdnfonts.com/css/garet" rel="stylesheet" />
+  <link href="https://fonts.cdnfonts.com/css/glacial-indifference" rel="stylesheet" />
+
+  <style>
+    /* ─── Reset & Base ─────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --wine:   #7a3c4a;
+      --rose:   #b06b75;
+      --earth:  #8a6470;
+      --dark:   #6e4550;
+      --nude:   #e8c8cc;
+      --white:  #ffffff;
+      --off:    #faf3f3;
+      --cream:  #fdf7f5;
+      --blush:  #f5e2e3;
+      --text:   #4a2830;
+      --muted:  #8a5a62;
+      --soft:   #f0d4d7;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Glacial Indifference', 'Helvetica Neue', Arial, sans-serif;
+      background: var(--cream);
+      color: var(--white);
+      line-height: 1.7;
+      font-size: 16px;
+      overflow-x: hidden;
+    }
+
+    h1, h2, h3 {
+      font-family: 'Garet', 'Glacial Indifference', 'Helvetica Neue', Arial, sans-serif;
+      font-weight: 700;
+      line-height: 1.15;
+      letter-spacing: -0.015em;
+    }
+
+    /* h2 com tracinho rosa decorativo antes do título nas seções claras */
+    section:not(#hero) h2 {
+      position: relative;
+    }
+    section:not(#hero):not(#o-que-e):not(#clareza):not(#investimento) h2::before {
+      content: '';
+      display: inline-block;
+      width: 32px;
+      height: 2px;
+      background: var(--rose);
+      vertical-align: middle;
+      margin-right: 16px;
+      transform: translateY(-4px);
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    img { max-width: 100%; display: block; }
+
+    /* ─── Scroll Reveal ─────────────────────────────────────────── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1), transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* delay em cascata em listas/grids */
+    .perfis-grid .reveal.visible:nth-child(1),
+    .cards-grid .reveal.visible:nth-child(1),
+    .steps-grid .reveal.visible:nth-child(1),
+    .talvez-list .reveal.visible:nth-child(1) { transition-delay: 0s; }
+    .perfis-grid .reveal.visible:nth-child(2),
+    .cards-grid .reveal.visible:nth-child(2),
+    .steps-grid .reveal.visible:nth-child(2),
+    .talvez-list .reveal.visible:nth-child(2) { transition-delay: 0.08s; }
+    .perfis-grid .reveal.visible:nth-child(3),
+    .cards-grid .reveal.visible:nth-child(3),
+    .steps-grid .reveal.visible:nth-child(3),
+    .talvez-list .reveal.visible:nth-child(3) { transition-delay: 0.16s; }
+    .perfis-grid .reveal.visible:nth-child(4),
+    .cards-grid .reveal.visible:nth-child(4),
+    .talvez-list .reveal.visible:nth-child(4) { transition-delay: 0.24s; }
+    .perfis-grid .reveal.visible:nth-child(5),
+    .cards-grid .reveal.visible:nth-child(5),
+    .talvez-list .reveal.visible:nth-child(5) { transition-delay: 0.32s; }
+    .perfis-grid .reveal.visible:nth-child(6),
+    .cards-grid .reveal.visible:nth-child(6) { transition-delay: 0.4s; }
+    .perfis-grid .reveal.visible:nth-child(7) { transition-delay: 0.48s; }
+    .perfis-grid .reveal.visible:nth-child(8) { transition-delay: 0.56s; }
+
+    /* ─── Buttons ────────────────────────────────────────────────── */
+    .btn-primary {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      background: var(--rose);
+      color: var(--white);
+      padding: 18px 38px;
+      border-radius: 2px;
+      font-family: 'Glacial Indifference', 'Helvetica Neue', Arial, sans-serif;
+      font-size: 1.02rem;
+      letter-spacing: 0.04em;
+      transition: background 0.3s ease, transform 0.25s ease, box-shadow 0.3s ease, padding 0.3s ease;
+      cursor: pointer;
+      border: none;
+      overflow: hidden;
+      box-shadow: 0 6px 24px rgba(176,107,117,0.35);
+    }
+    .btn-primary::after {
+      content: '→';
+      display: inline-block;
+      font-size: 1.1rem;
+      transition: transform 0.3s ease;
+    }
+    .btn-primary:hover {
+      background: var(--wine);
+      transform: translateY(-3px);
+      box-shadow: 0 14px 36px rgba(122,60,74,0.45);
+      padding-right: 44px;
+    }
+    .btn-primary:hover::after { transform: translateX(4px); }
+
+    /* brilho sutil que percorre o botão */
+    .btn-primary::before {
+      content: '';
+      position: absolute;
+      top: 0; left: -75%;
+      width: 50%; height: 100%;
+      background: linear-gradient(120deg, transparent, rgba(255,255,255,0.25), transparent);
+      transform: skewX(-20deg);
+      transition: left 0.7s ease;
+    }
+    .btn-primary:hover::before { left: 125%; }
+
+    /* destaques inline ao longo do texto */
+    .destaque {
+      color: var(--rose);
+      font-style: italic;
+      font-weight: 600;
+    }
+    .destaque-claro {
+      color: var(--nude);
+      font-style: italic;
+      font-weight: 600;
+    }
+    .destaque-bg {
+      background: linear-gradient(180deg, transparent 60%, rgba(176,107,117,0.22) 60%);
+      padding: 0 4px;
+      font-weight: 600;
+    }
+
+    .btn-link {
+      display: inline-block;
+      color: var(--nude);
+      font-size: 0.9rem;
+      letter-spacing: 0.04em;
+      border-bottom: 1px solid transparent;
+      transition: border-color 0.2s ease;
+    }
+    .btn-link:hover { border-color: var(--nude); }
+
+    /* ─── Lily SVG Decoration ────────────────────────────────────── */
+    .lily-deco {
+      position: absolute;
+      opacity: 0.18;
+      pointer-events: none;
+    }
+
+    /* ─── Section base ───────────────────────────────────────────── */
+    section { padding: 96px 24px; position: relative; overflow: hidden; }
+
+    .container {
+      max-width: 860px;
+      margin: 0 auto;
+    }
+
+    .section-tag {
+      font-size: 0.75rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--rose);
+      margin-bottom: 20px;
+      display: block;
+    }
+
+    /* abertura de seção centralizada (cria ritmo editorial) */
+    .header-centro {
+      text-align: center;
+      max-width: 720px;
+      margin: 0 auto 56px;
+    }
+    .header-centro .section-tag::after {
+      content: '';
+      display: block;
+      width: 36px;
+      height: 1px;
+      background: rgba(176,107,117,0.5);
+      margin: 12px auto 0;
+    }
+    .header-centro h2 {
+      margin: 0 auto 12px !important;
+    }
+    .header-centro h2::before { display: none !important; }
+    .header-centro .subhead,
+    .header-centro .header-sub {
+      font-size: 1rem;
+      color: var(--muted);
+      font-style: italic;
+      max-width: 580px;
+      margin: 0 auto;
+      line-height: 1.6;
+    }
+    .header-centro.escuro .subhead,
+    .header-centro.escuro .header-sub { color: rgba(245,220,224,0.7); }
+
+    /* fechamento centrado */
+    .fechamento-centro {
+      text-align: center;
+      max-width: 640px;
+      margin: 48px auto 0;
+      font-size: clamp(1.1rem, 2.4vw, 1.3rem);
+      font-style: italic;
+      color: var(--wine);
+      line-height: 1.5;
+      font-weight: 600;
+    }
+    .fechamento-centro.claro { color: var(--nude); }
+
+    /* ═══════════════════════════════════════════════════════════════
+       1. HERO — fundo fotográfico de lírios
+    ═══════════════════════════════════════════════════════════════ */
+    #hero {
+      min-height: 100svh;
+      display: flex;
+      align-items: flex-end;
+      padding: 0;
+      position: relative;
+      background-color: var(--dark);
+      overflow: hidden;
+    }
+
+    /* camada da foto real de lírio */
+    #hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: url('/consultoria-img-1.jpg') center center / cover no-repeat;
+      z-index: 0;
+    }
+
+    /* nervuras das pétalas — linhas orgânicas via SVG */
+    #hero .hero-petal-svg {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+      pointer-events: none;
+      opacity: 0.25;
+    }
+
+    /* overlay para legibilidade do texto + fade para próxima seção */
+    #hero::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        to bottom,
+        rgba(74,40,48,0.0) 0%,
+        rgba(74,40,48,0.10) 35%,
+        rgba(110,69,80,0.65) 68%,
+        rgba(110,69,80,0.97) 100%
+      );
+      z-index: 2;
+    }
+
+    /* ponte visual hero → o-que-e (mesma cor escura, zero gap) */
+    #hero {
+      margin-bottom: 0;
+      padding-bottom: 0;
+    }
+
+    #hero .container {
+      position: relative;
+      z-index: 3;
+      padding: 64px 24px 72px;
+      width: 100%;
+    }
+
+    #hero .section-tag {
+      color: rgba(188,150,134,0.75);
+      letter-spacing: 0.22em;
+    }
+
+    #hero h1 {
+      font-size: clamp(2.4rem, 6.5vw, 4.5rem);
+      color: var(--white);
+      margin-bottom: 28px;
+      max-width: 760px;
+      font-style: italic;
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+      text-shadow: 0 2px 24px rgba(28,21,8,0.55);
+    }
+    #hero h1 .destaque-claro {
+      background: linear-gradient(180deg, transparent 62%, rgba(232,200,204,0.35) 62%);
+      padding: 0 6px;
+      color: var(--nude);
+      font-style: italic;
+    }
+
+    #hero .subline {
+      font-size: clamp(1rem, 2.2vw, 1.18rem);
+      color: rgba(232,200,204,0.95);
+      max-width: 560px;
+      margin-bottom: 16px;
+      line-height: 1.85;
+    }
+    #hero .subline:last-of-type { margin-bottom: 44px; }
+    #hero .subline strong {
+      color: var(--white);
+      font-weight: 600;
+    }
+
+    .hero-ctas {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      align-items: center;
+    }
+
+    /* Sinalização de scroll */
+    .hero-scroll {
+      position: absolute;
+      bottom: 28px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 3;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      opacity: 0.4;
+      animation: scrollBounce 2.4s ease-in-out infinite;
+    }
+    .hero-scroll span {
+      font-size: 10px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--nude);
+    }
+    .hero-scroll svg { display: block; }
+
+    @keyframes scrollBounce {
+      0%, 100% { transform: translateX(-50%) translateY(0); }
+      50%       { transform: translateX(-50%) translateY(6px); }
+    }
+
+    /* ═══════════════════════════════════════════════════════════════
+       2. O QUE É
+    ═══════════════════════════════════════════════════════════════ */
+    #o-que-e { background: var(--dark); color: var(--white); margin-top: 0; }
+
+    #o-que-e h2 {
+      font-size: clamp(2rem, 4.5vw, 3rem);
+      margin-bottom: 32px;
+      color: var(--nude);
+      max-width: 720px;
+    }
+
+    #o-que-e p {
+      font-size: 1.05rem;
+      line-height: 1.85;
+      max-width: 680px;
+      color: rgba(245,220,224,0.9);
+      margin-bottom: 20px;
+    }
+
+    /* 3 "não é" — labels com X */
+    .nao-strip {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin: 0 0 64px 0;
+    }
+    .nao-strip .nao-item {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      padding: 14px 22px;
+      background: rgba(176,107,117,0.08);
+      border: 1px solid rgba(176,107,117,0.22);
+      border-radius: 999px;
+      font-size: 0.98rem;
+      color: rgba(245,220,224,0.85);
+      transition: background 0.3s ease, border-color 0.3s ease;
+    }
+    .nao-strip .nao-item:hover {
+      background: rgba(176,107,117,0.18);
+      border-color: var(--rose);
+    }
+    .nao-strip .nao-x {
+      flex-shrink: 0;
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      background: var(--rose);
+      color: var(--white);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.85rem;
+      font-weight: 700;
+      line-height: 1;
+    }
+
+    /* definição-âncora — frase grande editorial */
+    .definicao-grande {
+      font-family: 'Garet', sans-serif;
+      font-size: clamp(1.45rem, 3.4vw, 2.1rem);
+      line-height: 1.3;
+      color: var(--white) !important;
+      font-weight: 700;
+      max-width: 760px;
+      margin-bottom: 72px !important;
+      letter-spacing: -0.015em;
+    }
+    .definicao-grande .destaque-claro {
+      background: linear-gradient(180deg, transparent 65%, rgba(176,107,117,0.45) 65%);
+      padding: 0 6px;
+      color: var(--nude);
+      font-style: italic;
+      font-weight: 700;
+    }
+
+    /* mini-tag de subdivisão */
+    .sub-tag {
+      font-size: 0.72rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--rose);
+      display: inline-block;
+      margin-bottom: 24px;
+    }
+    .sub-tag::after {
+      content: '';
+      display: inline-block;
+      width: 40px;
+      height: 1px;
+      background: rgba(176,107,117,0.5);
+      vertical-align: middle;
+      margin-left: 14px;
+      transform: translateY(-2px);
+    }
+
+    /* chips dos itens analisados */
+    .chips-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin: 0 0 72px 0;
+    }
+
+    /* bloco centralizado de chips/sub-tag */
+    .bloco-centro {
+      text-align: center;
+      margin-bottom: 72px;
+    }
+    .bloco-centro .sub-tag::after {
+      display: inline-block;
+    }
+    .bloco-centro .chips-row {
+      justify-content: center;
+      margin: 0 auto;
+      max-width: 720px;
+    }
+    .chips-row span {
+      display: inline-block;
+      padding: 10px 18px;
+      border: 1px solid rgba(232,200,204,0.28);
+      border-radius: 999px;
+      font-size: 0.92rem;
+      color: rgba(245,220,224,0.92);
+      transition: background 0.25s ease, border-color 0.25s ease, transform 0.25s ease;
+      cursor: default;
+    }
+    .chips-row span:hover {
+      background: rgba(176,107,117,0.2);
+      border-color: var(--rose);
+      transform: translateY(-2px);
+    }
+
+    #o-que-e .lista-clareza { margin: 12px 0 24px; }
+    #o-que-e p.fechamento-secao {
+      margin-top: 56px;
+      font-style: italic;
+      font-size: clamp(1.1rem, 2.4vw, 1.3rem);
+      color: var(--nude);
+      max-width: 640px;
+      border-left: 3px solid var(--rose);
+      padding-left: 20px;
+    }
+
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 24px;
+    }
+
+    .card {
+      position: relative;
+      background: rgba(255,255,255,0.04);
+      border-radius: 4px;
+      padding: 32px 24px;
+      border-top: 3px solid var(--rose);
+      transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+      overflow: hidden;
+    }
+    .card::after {
+      content: '';
+      position: absolute;
+      top: 0; left: -100%;
+      width: 100%; height: 3px;
+      background: linear-gradient(90deg, transparent, var(--nude), transparent);
+      transition: left 0.6s ease;
+    }
+    .card:hover {
+      transform: translateY(-6px);
+      background: rgba(255,255,255,0.08);
+      box-shadow: 0 18px 40px rgba(155,85,92,0.28);
+    }
+    .card:hover::after { left: 100%; }
+
+    .card-icon { margin-bottom: 18px; }
+
+    .card h3 {
+      font-family: 'Glacial Indifference', 'Helvetica Neue', Arial, sans-serif;
+      font-size: 0.95rem;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      color: var(--nude);
+      line-height: 1.4;
+    }
+
+    /* ═══════════════════════════════════════════════════════════════
+       2.5 COMO FUNCIONA
+    ═══════════════════════════════════════════════════════════════ */
+    #como-funciona { background: var(--cream); }
+
+    #como-funciona h2 {
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      margin-bottom: 12px;
+      color: var(--wine);
+    }
+
+    #como-funciona .subhead {
+      font-size: 1rem;
+      color: var(--muted);
+      margin-bottom: 56px;
+      font-style: italic;
+    }
+
+    .steps-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 28px;
+    }
+
+    .step-card {
+      background: var(--white);
+      border-radius: 4px;
+      padding: 36px 28px;
+      border: 1px solid rgba(176,107,117,0.18);
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+      position: relative;
+    }
+    .step-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 32px rgba(122,60,74,0.12);
+    }
+
+    .step-number {
+      font-family: 'Garet', 'Glacial Indifference', 'Helvetica Neue', Arial, sans-serif;
+      font-weight: 700;
+      font-size: 4.2rem;
+      color: var(--rose);
+      opacity: 0.22;
+      display: block;
+      line-height: 1;
+      margin-bottom: 12px;
+      letter-spacing: -0.04em;
+      transition: opacity 0.3s ease, transform 0.3s ease;
+    }
+    .step-card:hover .step-number {
+      opacity: 0.6;
+      transform: translateX(4px);
+    }
+
+    .step-card h3 {
+      font-family: 'Garet', 'Glacial Indifference', 'Helvetica Neue', Arial, sans-serif;
+      font-size: 1.15rem;
+      color: var(--wine);
+      margin-bottom: 12px;
+      line-height: 1.3;
+    }
+
+    .step-card p {
+      font-size: 0.95rem;
+      color: var(--text);
+      line-height: 1.7;
+      margin-bottom: 8px;
+    }
+    .step-card p:last-of-type { margin-bottom: 0; }
+
+    .step-list {
+      list-style: none;
+      margin-top: 10px;
+      padding: 0;
+    }
+    .step-list li {
+      position: relative;
+      padding-left: 18px;
+      font-size: 0.92rem;
+      color: var(--text);
+      line-height: 1.6;
+      margin-bottom: 6px;
+    }
+    .step-list li::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 9px;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--rose);
+    }
+
+    /* ═══════════════════════════════════════════════════════════════
+       3. PARA QUEM É
+    ═══════════════════════════════════════════════════════════════ */
+    #para-quem {
+      background: var(--off);
+    }
+
+    #para-quem h2 {
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      margin-bottom: 20px;
+      color: var(--wine);
+    }
+
+    .para-quem-intro {
+      font-size: clamp(1.1rem, 2.4vw, 1.3rem);
+      color: var(--wine);
+      margin-bottom: 56px;
+      font-family: 'Garet', sans-serif;
+      font-weight: 600;
+      max-width: 640px;
+      line-height: 1.45;
+    }
+    .para-quem-intro::after {
+      content: '';
+      display: block;
+      width: 48px;
+      height: 2px;
+      background: var(--rose);
+      margin-top: 20px;
+    }
+
+    /* nova lista-manifesto em duas colunas */
+    .perfis-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 0;
+      margin-bottom: 64px;
+      border-top: 1px solid rgba(176,107,117,0.18);
+    }
+
+    .perfil-card {
+      display: flex;
+      align-items: flex-start;
+      gap: 18px;
+      padding: 26px 20px;
+      border-bottom: 1px solid rgba(176,107,117,0.18);
+      background: transparent;
+      transition: background 0.3s ease, padding-left 0.3s ease;
+      position: relative;
+    }
+
+    /* divisória vertical entre colunas */
+    @media (min-width: 760px) {
+      .perfil-card:nth-child(odd) {
+        border-right: 1px solid rgba(176,107,117,0.18);
+        padding-right: 28px;
+      }
+      .perfil-card:nth-child(even) {
+        padding-left: 28px;
+      }
+    }
+
+    .perfil-card:hover {
+      background: rgba(176,107,117,0.06);
+      padding-left: 26px;
+    }
+    @media (min-width: 760px) {
+      .perfil-card:nth-child(even):hover { padding-left: 34px; }
+    }
+
+    .perfil-card p {
+      font-size: clamp(0.98rem, 2vw, 1.08rem);
+      color: var(--text);
+      line-height: 1.55;
+      margin: 0;
+      flex: 1;
+    }
+
+    .perfil-card p strong {
+      color: var(--wine);
+      font-weight: 600;
+    }
+
+    /* checkmark elegante substituindo a bolinha */
+    .perfil-check {
+      flex-shrink: 0;
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      background: rgba(176,107,117,0.12);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 2px;
+      transition: background 0.3s ease, transform 0.3s ease;
+    }
+    .perfil-check svg {
+      width: 14px;
+      height: 14px;
+      stroke: var(--rose);
+      transition: stroke 0.3s ease;
+    }
+    .perfil-card:hover .perfil-check {
+      background: var(--rose);
+      transform: scale(1.1);
+    }
+    .perfil-card:hover .perfil-check svg { stroke: var(--white); }
+
+    .fechamento {
+      font-size: clamp(1.1rem, 2.4vw, 1.3rem);
+      color: var(--wine);
+      font-style: italic;
+      font-weight: 600;
+      border-left: 3px solid var(--rose);
+      padding: 8px 0 8px 24px;
+      max-width: 640px;
+      line-height: 1.5;
+    }
+
+    /* ═══════════════════════════════════════════════════════════════
+       4. O QUE VOCÊ VAI SAIR SABENDO
+    ═══════════════════════════════════════════════════════════════ */
+    #clareza { background: var(--dark); }
+
+    #clareza h2 {
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      margin-bottom: 48px;
+      color: var(--white);
+    }
+
+    .lista-clareza {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    .lista-clareza li {
+      display: flex;
+      align-items: flex-start;
+      gap: 18px;
+      padding: 22px 0;
+      border-bottom: 1px solid rgba(245, 220, 224, 0.18);
+      font-size: 1.02rem;
+      color: var(--nude);
+      line-height: 1.6;
+    }
+
+    .lista-clareza li:last-child { border-bottom: none; }
+
+    .lista-dot {
+      flex-shrink: 0;
+      margin-top: 8px;
+      width: 10px; height: 10px;
+      border-radius: 50%;
+      background: var(--rose);
+    }
+
+    .nota-italico {
+      margin-top: 48px;
+      font-style: italic;
+      color: rgba(245,220,224,0.7);
+      font-size: 0.95rem;
+      border-left: 2px solid rgba(176,107,117,0.6);
+      padding-left: 18px;
+    }
+
+    /* ═══════════════════════════════════════════════════════════════
+       4.5 O QUE PODE ACONTECER
+    ═══════════════════════════════════════════════════════════════ */
+    #pode-acontecer { background: var(--cream); }
+
+    #pode-acontecer h2 {
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      margin-bottom: 56px;
+      color: var(--wine);
+      max-width: 680px;
+    }
+
+    .talvez-list {
+      list-style: none;
+      padding: 0;
+      margin: 0 auto;
+      counter-reset: talvez;
+      max-width: 720px;
+    }
+
+    .talvez-list li {
+      font-size: clamp(1.05rem, 2.2vw, 1.25rem);
+      color: var(--text);
+      line-height: 1.55;
+      padding: 28px 0 28px 76px;
+      border-bottom: 1px solid rgba(176,107,117,0.2);
+      position: relative;
+      counter-increment: talvez;
+      transition: padding-left 0.3s ease, color 0.3s ease;
+    }
+
+    .talvez-list li:last-child { border-bottom: none; }
+
+    .talvez-list li::before {
+      content: counter(talvez, decimal-leading-zero);
+      position: absolute;
+      left: 0;
+      top: 24px;
+      font-family: 'Garet', 'Glacial Indifference', sans-serif;
+      font-weight: 700;
+      font-size: 2.2rem;
+      color: var(--rose);
+      opacity: 0.45;
+      line-height: 1;
+      letter-spacing: -0.03em;
+      transition: opacity 0.3s ease, transform 0.3s ease;
+    }
+
+    .talvez-list li:hover {
+      padding-left: 84px;
+      color: var(--wine);
+    }
+    .talvez-list li:hover::before {
+      opacity: 0.85;
+      transform: translateX(4px);
+    }
+
+    .talvez-fechamento {
+      margin: 56px auto 0;
+      padding: 32px 28px 0;
+      max-width: 720px;
+      font-size: clamp(1.15rem, 2.5vw, 1.4rem);
+      font-style: italic;
+      color: var(--wine);
+      line-height: 1.55;
+      border-top: 2px solid var(--rose);
+      font-weight: 600;
+      text-align: center;
+    }
+    .talvez-fechamento .destaque-bg {
+      background: linear-gradient(180deg, transparent 65%, rgba(176,107,117,0.28) 65%);
+    }
+
+    /* ═══════════════════════════════════════════════════════════════
+       5. QUEM SOU EU
+    ═══════════════════════════════════════════════════════════════ */
+    #quem-sou { background: var(--off); color: var(--text); }
+
+    .quem-inner {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 48px;
+      align-items: start;
+    }
+
+    @media (min-width: 640px) {
+      .quem-inner {
+        grid-template-columns: 220px 1fr;
+        gap: 56px;
+      }
+    }
+
+    .foto-gi {
+      width: 200px;
+      height: 200px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid var(--rose);
+      box-shadow: 0 8px 32px rgba(108,46,48,0.18);
+      margin: 0 auto;
+    }
+
+    /* Placeholder quando não há foto */
+    .foto-placeholder {
+      width: 200px;
+      height: 200px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--rose) 0%, var(--wine) 100%);
+      border: 3px solid var(--rose);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .foto-placeholder span {
+      font-family: 'Garet', 'Glacial Indifference', 'Helvetica Neue', Arial, sans-serif; font-weight: 700;
+      font-size: 3rem;
+      color: rgba(255,255,255,0.9);
+    }
+    .foto-placeholder small {
+      font-size: 0.65rem;
+      color: rgba(255,255,255,0.6);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      text-align: center;
+      padding: 0 16px;
+    }
+
+    #quem-sou h2 {
+      font-size: clamp(1.6rem, 3.5vw, 2.2rem);
+      color: var(--wine);
+      margin-bottom: 24px;
+    }
+
+    #quem-sou p {
+      font-size: 1rem;
+      line-height: 1.9;
+      color: #3a2a1a;
+      margin-bottom: 16px;
+    }
+
+    #quem-sou p:last-child { margin-bottom: 0; }
+
+    .bio-transicao {
+      color: var(--rose) !important;
+      font-weight: 600;
+      margin-bottom: 24px !important;
+    }
+
+    .metricas-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 16px;
+      margin: 16px 0 32px;
+      padding: 28px 24px;
+      background: var(--white);
+      border-radius: 4px;
+      border: 1px solid rgba(176,107,117,0.18);
+      box-shadow: 0 8px 24px rgba(122,60,74,0.06);
+    }
+
+    .metrica {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      padding: 0 8px;
+      border-right: 1px solid rgba(176,107,117,0.18);
+    }
+    .metrica:last-child { border-right: none; }
+
+    @media (max-width: 560px) {
+      .metrica { border-right: none; border-bottom: 1px solid rgba(176,107,117,0.18); padding-bottom: 16px; }
+      .metrica:last-child { border-bottom: none; padding-bottom: 0; }
+    }
+
+    .metrica-numero {
+      font-family: 'Garet', 'Glacial Indifference', 'Helvetica Neue', Arial, sans-serif;
+      font-weight: 700;
+      font-size: clamp(1.5rem, 3.2vw, 1.85rem);
+      color: var(--wine);
+      line-height: 1.05;
+      letter-spacing: -0.02em;
+      background: linear-gradient(120deg, var(--wine) 0%, var(--rose) 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .metrica-numero small {
+      font-size: 0.7rem;
+      font-weight: 400;
+      color: var(--muted);
+      letter-spacing: 0;
+      -webkit-text-fill-color: var(--muted);
+    }
+
+    .metrica-legenda {
+      font-size: 0.82rem;
+      color: var(--muted);
+      line-height: 1.5;
+      font-style: italic;
+    }
+
+    .metricas-grid {
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .metricas-grid:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 16px 36px rgba(122,60,74,0.14);
+    }
+
+    .bio-frase-final {
+      margin-top: 28px !important;
+      padding: 16px 0 16px 20px;
+      border-left: 2px solid var(--rose);
+      font-style: italic;
+      color: var(--wine) !important;
+      font-size: 1.02rem !important;
+    }
+
+    /* ═══════════════════════════════════════════════════════════════
+       5.5 DEPOIMENTOS
+    ═══════════════════════════════════════════════════════════════ */
+    #depoimentos { background: var(--blush); }
+
+    #depoimentos h2 {
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      margin-bottom: 12px;
+      color: var(--wine);
+    }
+
+    #depoimentos .subhead {
+      font-size: 1rem;
+      color: var(--muted);
+      margin-bottom: 48px;
+      font-style: italic;
+    }
+
+    .depoimentos-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 24px;
+    }
+
+    .depoimento-card {
+      position: relative;
+      aspect-ratio: 9 / 16;
+      background: var(--white);
+      border-radius: 4px;
+      overflow: hidden;
+      box-shadow: 0 8px 24px rgba(122,60,74,0.10);
+      border: 1px solid rgba(176,107,117,0.18);
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+    .depoimento-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 14px 32px rgba(122,60,74,0.18);
+    }
+
+    .depoimento-img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: 2;
+    }
+
+    .depoimento-placeholder {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      text-align: center;
+      padding: 24px;
+      background: linear-gradient(135deg, var(--cream) 0%, var(--soft) 100%);
+      z-index: 1;
+    }
+
+    .depoimento-placeholder .ph-icon {
+      font-size: 2rem;
+      opacity: 0.45;
+    }
+
+    .depoimento-placeholder .ph-name {
+      font-family: 'Glacial Indifference', 'Helvetica Neue', Arial, sans-serif;
+      font-size: 0.85rem;
+      color: var(--rose);
+      letter-spacing: 0.04em;
+    }
+
+    .depoimento-placeholder .ph-hint {
+      font-size: 0.72rem;
+      color: var(--muted);
+      opacity: 0.75;
+      font-style: italic;
+      line-height: 1.5;
+    }
+
+    /* ═══════════════════════════════════════════════════════════════
+       5.7 FAQ
+    ═══════════════════════════════════════════════════════════════ */
+    #faq { background: var(--off); }
+
+    #faq h2 {
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      margin-bottom: 48px;
+      color: var(--wine);
+    }
+
+    .faq-list {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .faq-item {
+      border-bottom: 1px solid rgba(176,107,117,0.22);
+      padding: 22px 0;
+    }
+
+    .faq-item:first-child {
+      border-top: 1px solid rgba(176,107,117,0.22);
+    }
+
+    .faq-item summary {
+      cursor: pointer;
+      list-style: none;
+      font-size: 1.05rem;
+      color: var(--wine);
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      transition: color 0.2s ease;
+    }
+
+    .faq-item summary::-webkit-details-marker { display: none; }
+
+    .faq-item summary::after {
+      content: '+';
+      font-size: 1.6rem;
+      font-weight: 300;
+      color: var(--rose);
+      transition: transform 0.3s ease;
+      flex-shrink: 0;
+      line-height: 1;
+    }
+
+    .faq-item[open] summary::after {
+      transform: rotate(45deg);
+    }
+
+    .faq-item summary:hover { color: var(--rose); }
+
+    .faq-item p {
+      font-size: 0.98rem;
+      color: var(--text);
+      line-height: 1.8;
+      margin-top: 16px;
+      padding-right: 32px;
+    }
+
+    /* ═══════════════════════════════════════════════════════════════
+       6. INVESTIMENTO
+    ═══════════════════════════════════════════════════════════════ */
+    #investimento {
+      background: var(--wine);
+      text-align: center;
+    }
+
+    #investimento h2 {
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      color: var(--white);
+      margin-bottom: 40px;
+    }
+
+    .preco-destaque {
+      font-family: 'Garet', 'Glacial Indifference', 'Helvetica Neue', Arial, sans-serif; font-weight: 700;
+      font-size: clamp(2.6rem, 7vw, 4.8rem);
+      color: var(--white);
+      display: block;
+      margin-bottom: 8px;
+    }
+
+    .preco-alt {
+      font-size: 1rem;
+      color: rgba(255,255,255,0.65);
+      margin-bottom: 40px;
+    }
+
+    .nota-preco {
+      max-width: 560px;
+      margin: 0 auto 48px;
+      text-align: center;
+    }
+
+    .nota-preco .ancora {
+      font-size: 0.95rem;
+      color: rgba(255,255,255,0.7);
+      line-height: 1.8;
+      margin-bottom: 18px;
+    }
+
+    .nota-preco .ancora strong {
+      color: var(--white);
+      font-weight: 600;
+    }
+
+    .nota-preco .ancora-destaque {
+      font-size: 1.02rem;
+      color: var(--white);
+      line-height: 1.7;
+      padding: 16px 20px;
+      margin: 0 auto 22px;
+      border-top: 1px solid rgba(255,255,255,0.18);
+      border-bottom: 1px solid rgba(255,255,255,0.18);
+      max-width: 480px;
+    }
+
+    .nota-preco .ancora-destaque strong {
+      color: var(--nude);
+      font-weight: 600;
+    }
+
+    .nota-preco .ancora-fechamento {
+      font-size: 0.88rem;
+      color: rgba(255,255,255,0.55);
+      line-height: 1.75;
+      font-style: italic;
+    }
+
+    .investimento-lily {
+      position: absolute;
+      left: -80px;
+      bottom: -40px;
+      opacity: 0.08;
+      pointer-events: none;
+    }
+
+    /* ═══════════════════════════════════════════════════════════════
+       7. RODAPÉ
+    ═══════════════════════════════════════════════════════════════ */
+    footer {
+      background: var(--dark);
+      padding: 64px 24px;
+      text-align: center;
+      border-top: 1px solid rgba(155,85,92,0.2);
+    }
+
+    footer .footer-name {
+      font-family: 'Garet', 'Glacial Indifference', 'Helvetica Neue', Arial, sans-serif; font-weight: 700;
+      font-size: 1.5rem;
+      color: var(--white);
+      margin-bottom: 20px;
+    }
+
+    footer .footer-links {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 24px;
+      margin-bottom: 32px;
+    }
+
+    footer .footer-links a {
+      color: var(--nude);
+      font-size: 0.9rem;
+      letter-spacing: 0.04em;
+      transition: color 0.2s ease;
+    }
+    footer .footer-links a:hover { color: var(--white); }
+
+    footer .footer-frase {
+      font-style: italic;
+      color: rgba(245,220,224,0.55);
+      font-size: 0.85rem;
+      letter-spacing: 0.06em;
+    }
+
+    /* ═══════════════════════════════════════════════════════════════
+       POPUP WHATSAPP
+    ═══════════════════════════════════════════════════════════════ */
+    #popup-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(58,34,24,0.5);
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.35s ease;
+    }
+    #popup-overlay.open {
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    #popup-card {
+      background: var(--off);
+      color: var(--dark);
+      border-radius: 4px;
+      padding: 40px 32px;
+      max-width: 420px;
+      width: 100%;
+      position: relative;
+      transform: translateY(16px);
+      transition: transform 0.35s ease;
+    }
+    #popup-overlay.open #popup-card {
+      transform: translateY(0);
+    }
+
+    #popup-close {
+      position: absolute;
+      top: 16px;
+      right: 20px;
+      background: none;
+      border: none;
+      font-size: 1.4rem;
+      cursor: pointer;
+      color: var(--earth);
+      line-height: 1;
+      transition: color 0.2s;
+    }
+    #popup-close:hover { color: var(--wine); }
+
+    #popup-card h3 {
+      font-size: 1.3rem;
+      color: var(--wine);
+      margin-bottom: 12px;
+    }
+
+    #popup-card p {
+      font-size: 0.97rem;
+      color: #3a2a1a;
+      margin-bottom: 28px;
+      line-height: 1.7;
+    }
+
+    .btn-whatsapp {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: #25D366;
+      color: var(--white);
+      padding: 14px 28px;
+      border-radius: 2px;
+      font-size: 0.95rem;
+      letter-spacing: 0.04em;
+      transition: background 0.25s ease;
+      width: 100%;
+      justify-content: center;
+    }
+    .btn-whatsapp:hover { background: #1ebe5c; }
+
+    /* ═══════════════════════════════════════════════════════════════
+       BOTÃO FLUTUANTE WHATSAPP
+    ═══════════════════════════════════════════════════════════════ */
+    #fab-whatsapp {
+      position: fixed;
+      bottom: 28px;
+      right: 28px;
+      z-index: 900;
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      background: var(--rose);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 20px rgba(108,46,48,0.4);
+      transition: background 0.25s ease, transform 0.2s ease;
+    }
+    #fab-whatsapp:hover {
+      background: var(--wine);
+      transform: scale(1.08);
+    }
+
+    /* ─── Responsive tweaks ─────────────────────────────────────── */
+    @media (max-width: 480px) {
+      section { padding: 72px 20px; }
+      .hero-lilies { display: none; }
+    }
+
+    #o-que-e .section-tag,
+    #clareza .section-tag { color: rgba(245,220,224,0.75); }
+
+    /* ── Foto da Gi — círculo editorial ────────────────────────── */
+    .foto-gi-wrap {
+      position: relative;
+      width: 220px;
+      height: 220px;
+      margin: 0 auto 32px;
+      flex-shrink: 0;
+    }
+    .foto-gi-wrap::before {
+      content: '';
+      position: absolute;
+      inset: -5px;
+      border-radius: 50%;
+      border: 2px solid rgba(155,85,92,0.4);
+      pointer-events: none;
+    }
+    .foto-gi-wrap::after {
+      content: '';
+      position: absolute;
+      inset: -12px;
+      border-radius: 50%;
+      border: 1px solid rgba(155,85,92,0.15);
+      pointer-events: none;
+    }
+    .foto-gi {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      object-fit: cover;
+      object-position: center top;
+      display: block;
+      box-shadow: 0 12px 40px rgba(28,21,8,0.18);
+    }
+
+  </style>
+</head>
+<body>
+
+  <!-- ═══════════════ 1. HERO ═══════════════ -->
+  <section id="hero">
+
+    <div class="container">
+      <span class="section-tag reveal">de repente online, consultoria</span>
+      <h1 class="reveal">a internet pode mudar <span class="destaque-claro">completamente</span> a sua vida.</h1>
+      <p class="subline reveal">o problema é que <strong>ninguém nunca te mostrou</strong> como isso poderia funcionar pra você.</p>
+      <p class="subline reveal">em <strong>1h30</strong>, eu analiso o seu momento, o seu perfil e o seu potencial pra te mostrar caminhos reais de <strong>crescimento, posicionamento e monetização online</strong>, mesmo que você esteja começando do zero.</p>
+      <div class="hero-ctas reveal">
+        <a href="https://wa.link/r5vztv" target="_blank" rel="noopener" class="btn-primary">
+          quero descobrir meu potencial online
+        </a>
+        <a href="https://wa.link/9yjirf" target="_blank" rel="noopener" class="btn-link">
+          ainda tô em dúvida, quero conversar antes
+        </a>
+      </div>
+    </div>
+
+    <!-- Indicador de scroll -->
+    <div class="hero-scroll" aria-hidden="true">
+      <span>rolar</span>
+      <svg width="14" height="20" viewBox="0 0 14 20" fill="none">
+        <path d="M7 2v16M1 12l6 6 6-6" stroke="#bc9686" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </div>
+
+  </section>
+
+  <!-- ═══════════════ 2. O QUE É ═══════════════ -->
+  <section id="o-que-e">
+    
+    <div class="container">
+      <span class="section-tag reveal">o que você está contratando</span>
+      <h2 class="reveal">1h30 só sobre você.</h2>
+
+      <div class="nao-strip reveal">
+        <span class="nao-item"><span class="nao-x">×</span>não é um curso</span>
+        <span class="nao-item"><span class="nao-x">×</span>não é uma mentoria genérica</span>
+        <span class="nao-item"><span class="nao-x">×</span>não é uma fórmula pronta</span>
+      </div>
+
+      <p class="definicao-grande reveal">essa é uma <span class="destaque-claro">consultoria estratégica e personalizada</span> pra entender onde você está hoje, e quais caminhos fazem sentido pra você dentro da internet.</p>
+
+      <div class="bloco-centro reveal">
+        <span class="sub-tag">o que eu analiso</span>
+        <div class="chips-row">
+          <span>seu perfil</span>
+          <span>sua rotina</span>
+          <span>sua personalidade</span>
+          <span>seus objetivos</span>
+          <span>seus bloqueios</span>
+          <span>possibilidades de crescimento e monetização</span>
+        </div>
+      </div>
+
+      <span class="sub-tag reveal">o que você sai sabendo</span>
+
+      <div class="cards-grid">
+
+        <div class="card reveal">
+          <div class="card-icon">
+            <svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <circle cx="15" cy="15" r="9" stroke="#9b555c" stroke-width="2.5"/>
+              <line x1="22" y1="22" x2="31" y2="31" stroke="#9b555c" stroke-width="2.5" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <h3>diagnóstico completo do seu perfil e posicionamento</h3>
+        </div>
+
+        <div class="card reveal">
+          <div class="card-icon">
+            <svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <circle cx="18" cy="18" r="13" stroke="#9b555c" stroke-width="2.5"/>
+              <polygon points="18,8 21,18 18,16 15,18" fill="#9b555c"/>
+              <polygon points="18,28 15,18 18,20 21,18" fill="#bc9686"/>
+            </svg>
+          </div>
+          <h3>direção clara sobre o que faz sentido construir agora</h3>
+        </div>
+
+        <div class="card reveal">
+          <div class="card-icon">
+            <svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <circle cx="18" cy="18" r="12" stroke="#9b555c" stroke-width="2.5"/>
+              <path d="M18 11v14M14 14h6a2.5 2.5 0 010 5h-6a2.5 2.5 0 000 5h6" stroke="#9b555c" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <h3>formas de monetização alinhadas com o seu momento e sua realidade</h3>
+        </div>
+
+        <div class="card reveal">
+          <div class="card-icon">
+            <svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <path d="M6 22l8-8 5 5 11-11" stroke="#9b555c" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M22 8h8v8" stroke="#9b555c" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <h3>como transformar presença online em oportunidade</h3>
+        </div>
+
+        <div class="card reveal">
+          <div class="card-icon">
+            <svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <rect x="10" y="16" width="16" height="12" rx="2" stroke="#9b555c" stroke-width="2.5"/>
+              <path d="M13 16v-4a5 5 0 0110 0v4" stroke="#9b555c" stroke-width="2.5" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <h3>o que está travando seu crescimento hoje</h3>
+        </div>
+
+        <div class="card reveal">
+          <div class="card-icon">
+            <svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <rect x="8" y="6" width="20" height="24" rx="2" stroke="#9b555c" stroke-width="2.5"/>
+              <line x1="13" y1="13" x2="23" y2="13" stroke="#9b555c" stroke-width="2" stroke-linecap="round"/>
+              <line x1="13" y1="18" x2="23" y2="18" stroke="#9b555c" stroke-width="2" stroke-linecap="round"/>
+              <line x1="13" y1="23" x2="19" y2="23" stroke="#9b555c" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <h3>quais conteúdos realmente fazem sentido pra você</h3>
+        </div>
+
+      </div>
+
+      <p class="reveal" style="margin-top:72px;">muita gente sente que <em>"a internet tem oportunidades"</em>, mas <strong>não consegue enxergar onde ela mesma se encaixa</strong> nisso tudo.</p>
+      <p class="reveal fechamento-secao">é exatamente isso que a gente vai descobrir juntas.</p>
+    </div>
+  </section>
+
+  <!-- ═══════════════ 2.5 COMO FUNCIONA ═══════════════ -->
+  <section id="como-funciona">
+    <div class="container">
+      <div class="header-centro reveal">
+        <span class="section-tag">passo a passo</span>
+        <h2>como funciona</h2>
+        <p class="subhead">simples assim. três passos pra você ter clareza.</p>
+      </div>
+      <div class="steps-grid">
+
+        <div class="step-card reveal">
+          <span class="step-number">01</span>
+          <h3>você agenda sua sessão</h3>
+          <p>depois do pagamento, você escolhe o melhor horário direto no meu google agenda.</p>
+        </div>
+
+        <div class="step-card reveal">
+          <span class="step-number">02</span>
+          <h3>a gente conversa por 1h30</h3>
+          <p>eu analiso seu momento, seu perfil e suas possibilidades reais dentro da internet.</p>
+          <p>não é uma aula genérica, é uma conversa estratégica focada em você.</p>
+        </div>
+
+        <div class="step-card reveal">
+          <span class="step-number">03</span>
+          <h3>você sai com direção</h3>
+          <p>você termina a consultoria sabendo:</p>
+          <ul class="step-list">
+            <li>quais caminhos fazem sentido pra você</li>
+            <li>o que priorizar</li>
+            <li>o que parar de fazer</li>
+            <li>como começar a construir presença online de forma inteligente</li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════ 3. PARA QUEM É ═══════════════ -->
+  <section id="para-quem">
+    <div class="container">
+      <div class="header-centro reveal">
+        <span class="section-tag">identificação</span>
+        <h2>você se reconhece aqui?</h2>
+        <p class="header-sub">essa consultoria é pra mulheres que…</p>
+      </div>
+      <div class="perfis-grid">
+
+        <div class="perfil-card reveal">
+          <span class="perfil-check"><svg viewBox="0 0 14 14" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="2,7 6,11 12,3"/></svg></span>
+          <p>sentem que nasceram pra <strong>algo maior</strong> do que viver presas numa rotina que esgota</p>
+        </div>
+
+        <div class="perfil-card reveal">
+          <span class="perfil-check"><svg viewBox="0 0 14 14" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="2,7 6,11 12,3"/></svg></span>
+          <p>sabem que a internet abriu <strong>novas possibilidades</strong>, mas não fazem ideia de por onde começar</p>
+        </div>
+
+        <div class="perfil-card reveal">
+          <span class="perfil-check"><svg viewBox="0 0 14 14" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="2,7 6,11 12,3"/></svg></span>
+          <p>querem transformar conhecimento, personalidade ou presença online em <strong>oportunidade</strong></p>
+        </div>
+
+        <div class="perfil-card reveal">
+          <span class="perfil-check"><svg viewBox="0 0 14 14" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="2,7 6,11 12,3"/></svg></span>
+          <p>já tentaram postar e crescer nas redes, mas sentem que estão <strong>andando em círculos</strong></p>
+        </div>
+
+        <div class="perfil-card reveal">
+          <span class="perfil-check"><svg viewBox="0 0 14 14" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="2,7 6,11 12,3"/></svg></span>
+          <p>querem construir uma <strong>presença online forte</strong> pra atrair clientes, oportunidades ou reconhecimento</p>
+        </div>
+
+        <div class="perfil-card reveal">
+          <span class="perfil-check"><svg viewBox="0 0 14 14" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="2,7 6,11 12,3"/></svg></span>
+          <p>trabalham com marketing tradicional e ainda não entenderam o <strong>tamanho da internet hoje</strong></p>
+        </div>
+
+        <div class="perfil-card reveal">
+          <span class="perfil-check"><svg viewBox="0 0 14 14" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="2,7 6,11 12,3"/></svg></span>
+          <p>querem usar um perfil forte como <strong>diferencial profissional e pessoal</strong></p>
+        </div>
+
+        <div class="perfil-card reveal">
+          <span class="perfil-check"><svg viewBox="0 0 14 14" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="2,7 6,11 12,3"/></svg></span>
+          <p>sentem <strong>potencial</strong>, mas falta direção</p>
+        </div>
+
+      </div>
+      <p class="fechamento-centro reveal">se você deu um sorriso lendo qualquer um desses, esse papo é pra você.</p>
+    </div>
+  </section>
+
+  <!-- ═══════════════ 4. CLAREZA ═══════════════ -->
+  <section id="clareza">
+    
+    <div class="container">
+      <span class="section-tag reveal">o que você vai sair sabendo</span>
+      <h2 class="reveal">você vai sair com clareza.</h2>
+      <ul class="lista-clareza">
+        <li class="reveal">
+          <span class="lista-dot"></span>
+          em quais redes faz sentido estar e por quê
+        </li>
+        <li class="reveal">
+          <span class="lista-dot"></span>
+          quais conteúdos priorizar e quais parar de fazer agora
+        </li>
+        <li class="reveal">
+          <span class="lista-dot"></span>
+          como o seu objetivo muda a sua estratégia
+        </li>
+        <li class="reveal">
+          <span class="lista-dot"></span>
+          o que já tá funcionando e vale ser potencializado
+        </li>
+        <li class="reveal">
+          <span class="lista-dot"></span>
+          quais formas de monetização existem pro seu momento
+        </li>
+      </ul>
+      <p class="nota-italico reveal">eu não executo por você. eu ilumino o caminho pra você fazer com confiança.</p>
+    </div>
+  </section>
+
+  <!-- ═══════════════ 4.5 O QUE PODE ACONTECER ═══════════════ -->
+  <section id="pode-acontecer">
+    <div class="container">
+      <div class="header-centro reveal">
+        <span class="section-tag">depois da consultoria</span>
+        <h2>o que pode acontecer depois dessa conversa</h2>
+      </div>
+      <ul class="talvez-list">
+        <li class="reveal">talvez você finalmente comece aquele projeto que vive adiando.</li>
+        <li class="reveal">talvez você descubra uma forma de transformar o que sabe em renda.</li>
+        <li class="reveal">talvez você perceba que não precisa virar influencer pra crescer na internet.</li>
+        <li class="reveal">talvez você entenda como usar seu perfil como portfólio profissional.</li>
+        <li class="reveal">talvez você encontre um caminho que combina mais com você do que tudo que viveu até agora.</li>
+      </ul>
+      <p class="talvez-fechamento reveal">e talvez, pela primeira vez, a internet deixe de parecer um lugar distante, e comece a parecer uma <span class="destaque-bg">possibilidade real</span>.</p>
+    </div>
+  </section>
+
+  <!-- ═══════════════ 5. QUEM SOU EU ═══════════════ -->
+  <section id="quem-sou">
+    <div class="container">
+      <span class="section-tag reveal" style="color:var(--earth);">quem vai te atender</span>
+      <div class="quem-inner">
+
+        <div class="reveal">
+          <div class="foto-gi-wrap">
+            <img src="/consultoria-img-2.jpg" alt="Giovana Ferreira" class="foto-gi" />
+          </div>
+        </div>
+
+        <div>
+          <h2 class="reveal">oi, eu sou a Gi.</h2>
+          <p class="reveal">
+            saí da ESPM Rio, passei por multinacional de tecnologia e cheguei à gerência de marketing de uma holding, administrando 5 marcas ao mesmo tempo no nicho de genética e saúde.
+          </p>
+          <p class="reveal bio-transicao">
+            nesse caminho, aprendi uma coisa: a internet recompensa quem entende <span class="destaque-bg">posicionamento, percepção e comportamento humano</span>.
+          </p>
+          <p class="reveal">
+            e foi isso que me fez enxergar <strong>oportunidades que a maioria das pessoas nem percebe que existem</strong>.
+          </p>
+
+          <div class="metricas-grid reveal">
+            <div class="metrica">
+              <span class="metrica-numero">R$9 → R$300<small>/h</small></span>
+              <span class="metrica-legenda">o que acontece quando você aprende a enxergar o próprio valor</span>
+            </div>
+            <div class="metrica">
+              <span class="metrica-numero">R$7 mil</span>
+              <span class="metrica-legenda">vendidos online construindo do zero</span>
+            </div>
+            <div class="metrica">
+              <span class="metrica-numero">300+</span>
+              <span class="metrica-legenda">pessoas movimentadas em uma única ação estratégica</span>
+            </div>
+          </div>
+
+          <p class="reveal">
+            mesmo com estabilidade e carreira construída, <strong>eu larguei tudo</strong>. porque eu acredito que a internet pode criar <span class="destaque-bg">vidas completamente diferentes</span> quando você entende como usar ela a seu favor.
+          </p>
+
+          <p class="reveal bio-frase-final">
+            agora eu tô recomeçando também. e é exatamente por isso que cada cliente meu importa de verdade.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════ 5.5 DEPOIMENTOS ═══════════════ -->
+  <section id="depoimentos">
+    <div class="container">
+      <div class="header-centro reveal">
+        <span class="section-tag">quem já passou por aqui</span>
+        <h2>o que dizem sobre a consultoria</h2>
+        <p class="subhead">prints reais de quem viveu o processo.</p>
+      </div>
+      <div class="depoimentos-grid">
+
+        <div class="depoimento-card reveal">
+          <img src="/depoimento-1.jpg" alt="Depoimento de cliente" class="depoimento-img" onerror="this.remove()" />
+          <div class="depoimento-placeholder">
+            <span class="ph-icon">🌸</span>
+            <span class="ph-name">depoimento-1.jpg</span>
+            <small class="ph-hint">adicione o print no github<br>com esse nome</small>
+          </div>
+        </div>
+
+        <div class="depoimento-card reveal">
+          <img src="/depoimento-2.jpg" alt="Depoimento de cliente" class="depoimento-img" onerror="this.remove()" />
+          <div class="depoimento-placeholder">
+            <span class="ph-icon">🌸</span>
+            <span class="ph-name">depoimento-2.jpg</span>
+            <small class="ph-hint">adicione o print no github<br>com esse nome</small>
+          </div>
+        </div>
+
+        <div class="depoimento-card reveal">
+          <img src="/depoimento-3.jpg" alt="Depoimento de cliente" class="depoimento-img" onerror="this.remove()" />
+          <div class="depoimento-placeholder">
+            <span class="ph-icon">🌸</span>
+            <span class="ph-name">depoimento-3.jpg</span>
+            <small class="ph-hint">adicione o print no github<br>com esse nome</small>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════ 5.7 FAQ ═══════════════ -->
+  <section id="faq">
+    <div class="container">
+      <div class="header-centro reveal">
+        <span class="section-tag">perguntas frequentes</span>
+        <h2>o que costuma rolar na sua cabeça</h2>
+      </div>
+      <div class="faq-list">
+
+        <details class="faq-item reveal">
+          <summary>funciona pra quem tá começando do zero?</summary>
+          <p>sim, especialmente. a gente parte do que você tem agora — mesmo que seja só uma ideia na cabeça. não precisa ter perfil, audiência ou produto pronto.</p>
+        </details>
+
+        <details class="faq-item reveal">
+          <summary>vou receber algum material depois?</summary>
+          <p>sim. um resumo escrito com os principais direcionamentos da nossa conversa chega pra você em até 24h pelo WhatsApp. você não precisa anotar tudo na hora.</p>
+        </details>
+
+        <details class="faq-item reveal">
+          <summary>e se eu não gostar?</summary>
+          <p>me chama antes de comprar. a gente conversa primeiro, sem compromisso e sem pressão. se mesmo assim depois você sentir que não valeu, resolve direto comigo no WhatsApp — sem burocracia.</p>
+        </details>
+
+        <details class="faq-item reveal">
+          <summary>qual a diferença disso de um curso?</summary>
+          <p>num curso você assiste. aqui eu olho pro seu perfil, entendo o seu objetivo e te digo o que faz sentido pro seu momento — não uma lista genérica que serve pra todo mundo.</p>
+        </details>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════ 6. INVESTIMENTO ═══════════════ -->
+  <section id="investimento">
+    
+    <div class="container reveal">
+      <span class="section-tag" style="color:rgba(255,255,255,0.5);">investimento</span>
+      <h2>quanto custa?</h2>
+      <span class="preco-destaque">R$350 no pix</span>
+      <p class="preco-alt">ou R$389,90 em até 12x</p>
+      <div class="nota-preco">
+        <p class="ancora">isso <strong>não é sobre pagar por 1h30</strong>.</p>
+        <p class="ancora-destaque">é sobre <span style="color:var(--nude);">encurtar meses, ou anos,</span> de confusão, tentativa e frustração.</p>
+        <p class="ancora">a internet mudou <strong>completamente</strong> a forma como pessoas crescem, trabalham e ganham dinheiro.</p>
+        <p class="ancora">o problema é que a maioria continua tentando entender tudo <strong>sozinha</strong>.</p>
+        <p class="ancora-fechamento" style="font-style:normal;color:#fff;font-size:1.4rem;letter-spacing:0.04em;font-family:'Garet',sans-serif;font-weight:700;">aqui, você ganha <span style="color:var(--nude);font-style:italic;">direção</span>.</p>
+      </div>
+      <a href="https://wa.link/r5vztv" target="_blank" rel="noopener" class="btn-primary" style="background:var(--dark);color:var(--white);">
+        quero agendar minha consultoria
+      </a>
+    </div>
+  </section>
+
+  <!-- ═══════════════ 7. RODAPÉ ═══════════════ -->
+  <footer>
+    <p class="footer-name">Giovana Ferreira</p>
+    <div class="footer-links">
+      <a href="https://instagram.com/derepentegi21" target="_blank" rel="noopener">
+        @derepentegi21
+      </a>
+      <a href="https://wa.link/9yjirf" target="_blank" rel="noopener">
+        WhatsApp
+      </a>
+    </div>
+    <p class="footer-frase">ser mulher é um privilégio, não um peso.</p>
+  </footer>
+
+  <!-- ═══════════════ POPUP WHATSAPP ═══════════════ -->
+  <div id="popup-overlay" role="dialog" aria-modal="true" aria-labelledby="popup-title">
+    <div id="popup-card">
+      <button id="popup-close" aria-label="fechar">×</button>
+      <h3 id="popup-title">ainda tá em dúvida?</h3>
+      <p>me chama antes de decidir. sem compromisso, sem pressão.</p>
+      <a href="https://wa.link/9yjirf" target="_blank" rel="noopener" class="btn-whatsapp">
+        <!-- WhatsApp icon -->
+        <svg width="22" height="22" viewBox="0 0 32 32" fill="white" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <path d="M16 2C8.28 2 2 8.28 2 16c0 2.46.67 4.76 1.82 6.74L2 30l7.47-1.79A13.93 13.93 0 0016 30c7.72 0 14-6.28 14-14S23.72 2 16 2zm0 25.6c-2.2 0-4.27-.6-6.04-1.65l-.43-.26-4.44 1.06 1.1-4.32-.28-.45A11.54 11.54 0 014.4 16C4.4 9.6 9.6 4.4 16 4.4S27.6 9.6 27.6 16 22.4 27.6 16 27.6zm6.33-8.63c-.35-.17-2.05-1.01-2.37-1.12-.32-.12-.55-.17-.77.17-.23.35-.88 1.12-1.08 1.35-.2.23-.4.26-.74.09-.35-.17-1.47-.54-2.8-1.73-1.03-.92-1.73-2.06-1.93-2.41-.2-.35-.02-.54.15-.71.15-.15.35-.4.52-.6.17-.2.23-.35.35-.58.12-.23.06-.43-.03-.6-.09-.17-.77-1.86-1.06-2.55-.28-.67-.56-.58-.77-.59l-.66-.01c-.23 0-.6.09-.92.43-.32.35-1.2 1.17-1.2 2.86s1.23 3.32 1.4 3.55c.17.23 2.42 3.7 5.87 5.19.82.35 1.46.56 1.96.72.82.26 1.57.22 2.16.13.66-.1 2.05-.84 2.34-1.65.29-.81.29-1.5.2-1.65-.08-.14-.3-.23-.65-.4z"/>
+        </svg>
+        abrir whatsapp
+      </a>
+    </div>
+  </div>
+
+  <!-- ═══════════════ FAB WHATSAPP ═══════════════ -->
+  <a id="fab-whatsapp" href="https://wa.link/9yjirf" target="_blank" rel="noopener" aria-label="Falar no WhatsApp">
+    <svg width="28" height="28" viewBox="0 0 32 32" fill="white" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <path d="M16 2C8.28 2 2 8.28 2 16c0 2.46.67 4.76 1.82 6.74L2 30l7.47-1.79A13.93 13.93 0 0016 30c7.72 0 14-6.28 14-14S23.72 2 16 2zm0 25.6c-2.2 0-4.27-.6-6.04-1.65l-.43-.26-4.44 1.06 1.1-4.32-.28-.45A11.54 11.54 0 014.4 16C4.4 9.6 9.6 4.4 16 4.4S27.6 9.6 27.6 16 22.4 27.6 16 27.6zm6.33-8.63c-.35-.17-2.05-1.01-2.37-1.12-.32-.12-.55-.17-.77.17-.23.35-.88 1.12-1.08 1.35-.2.23-.4.26-.74.09-.35-.17-1.47-.54-2.8-1.73-1.03-.92-1.73-2.06-1.93-2.41-.2-.35-.02-.54.15-.71.15-.15.35-.4.52-.6.17-.2.23-.35.35-.58.12-.23.06-.43-.03-.6-.09-.17-.77-1.86-1.06-2.55-.28-.67-.56-.58-.77-.59l-.66-.01c-.23 0-.6.09-.92.43-.32.35-1.2 1.17-1.2 2.86s1.23 3.32 1.4 3.55c.17.23 2.42 3.7 5.87 5.19.82.35 1.46.56 1.96.72.82.26 1.57.22 2.16.13.66-.1 2.05-.84 2.34-1.65.29-.81.29-1.5.2-1.65-.08-.14-.3-.23-.65-.4z"/>
+    </svg>
+  </a>
+
+  <!-- ═══════════════ JAVASCRIPT ═══════════════ -->
+  <script>
+    /* ── Scroll Reveal ── */
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach(e => {
+          if (e.isIntersecting) {
+            e.target.classList.add('visible');
+            observer.unobserve(e.target);
+          }
+        });
+      },
+      { threshold: 0.12 }
+    );
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+    /* ── Popup WhatsApp ── */
+    const overlay   = document.getElementById('popup-overlay');
+    const closeBtn  = document.getElementById('popup-close');
+    const STORAGE   = 'dro_popup_closed';
+    let   popupShown = false;
+
+    function showPopup() {
+      if (popupShown || localStorage.getItem(STORAGE)) return;
+      popupShown = true;
+      overlay.classList.add('open');
+    }
+
+    function closePopup() {
+      overlay.classList.remove('open');
+      localStorage.setItem(STORAGE, '1');
+    }
+
+    closeBtn.addEventListener('click', closePopup);
+    overlay.addEventListener('click', e => {
+      if (e.target === overlay) closePopup();
+    });
+
+    /* Dispara após 8s */
+    setTimeout(showPopup, 8000);
+
+    /* Dispara ao rolar 60% */
+    window.addEventListener('scroll', () => {
+      const scrolled = window.scrollY / (document.body.scrollHeight - window.innerHeight);
+      if (scrolled >= 0.6) showPopup();
+    }, { passive: true });
+  </script>
+
+</body>
+</html>
