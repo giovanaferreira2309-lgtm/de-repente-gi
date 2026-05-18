@@ -252,27 +252,57 @@
       overflow: hidden;
       display: flex;
       flex-direction: column;
-      padding: 28px 32px 0;
+      padding: 18px 32px 0;
     }
 
-    /* topo: tag + ano em opostos */
-    .hero-topbar {
+    /* navbar do hero */
+    .hero-nav {
       display: flex;
-      justify-content: space-between;
       align-items: center;
-      font-size: 11px;
-      letter-spacing: 0.24em;
-      text-transform: uppercase;
-      color: var(--muted);
-      font-weight: 600;
-      padding-bottom: 18px;
+      justify-content: space-between;
+      gap: 24px;
+      padding: 8px 0 18px;
     }
-    .hero-topbar .dot {
-      width: 6px; height: 6px; border-radius: 50%;
+    .hero-logo {
+      font-family: 'Garet', 'Glacial Indifference', sans-serif;
+      font-style: italic;
+      font-weight: 500;
+      font-size: clamp(1.1rem, 1.8vw, 1.4rem);
+      color: var(--wine);
+      flex-shrink: 0;
+    }
+    .hero-navlinks {
+      display: flex;
+      list-style: none;
+      gap: clamp(14px, 2vw, 32px);
+      font-size: 11px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--text);
+      font-weight: 600;
+      margin: 0;
+      padding: 0;
+    }
+    .hero-navlinks a {
+      color: inherit;
+      transition: color 0.2s ease;
+    }
+    .hero-navlinks a:hover { color: var(--rose); }
+    .hero-nav-cta {
+      flex-shrink: 0;
       background: var(--rose);
-      display: inline-block;
-      margin: 0 10px;
-      vertical-align: middle;
+      color: var(--white);
+      padding: 12px 24px;
+      border-radius: 999px;
+      font-size: 12px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      font-weight: 600;
+      transition: background 0.25s ease, transform 0.2s ease;
+    }
+    .hero-nav-cta:hover {
+      background: var(--wine);
+      transform: translateY(-2px);
     }
 
     /* sobretítulo (acima do bigword) */
@@ -319,7 +349,7 @@
       flex-direction: column;
       align-items: center;
       justify-content: flex-start;
-      margin-top: -2vw;
+      margin-top: -8vw;
     }
     .hero-circle-wrap {
       position: relative;
@@ -395,13 +425,19 @@
     /* CTAs centralizados abaixo da imagem */
     .hero-ctas {
       display: flex;
-      flex-wrap: wrap;
-      gap: 16px;
-      align-items: center;
       justify-content: center;
-      margin-top: 32px;
+      margin-top: 24px;
       z-index: 3;
       position: relative;
+    }
+    /* botão arredondado (pill) */
+    .btn-pill {
+      border-radius: 999px !important;
+      padding: 18px 44px !important;
+      font-size: 0.98rem !important;
+      letter-spacing: 0.08em !important;
+      text-transform: uppercase !important;
+      font-weight: 600;
     }
 
     /* linha de keywords no rodapé */
@@ -430,8 +466,12 @@
     /* Sinalização de scroll */
     .hero-scroll { display: none; }
 
+    @media (max-width: 980px) {
+      .hero-navlinks { display: none; }
+    }
     @media (max-width: 760px) {
-      #hero { padding: 20px 18px 0; }
+      #hero { padding: 14px 18px 0; }
+      .hero-nav-cta { padding: 10px 18px; font-size: 11px; }
       .hero-supratitle { font-size: 1.4rem; }
       .hero-bigword { font-size: clamp(3.6rem, 24vw, 7.5rem); }
       .hero-circle-wrap { width: 70vw; height: 70vw; margin-top: -18vw; }
@@ -1526,10 +1566,19 @@
   <!-- ═══════════════ 1. HERO ═══════════════ -->
   <section id="hero">
 
-    <div class="hero-topbar reveal">
-      <span>de repente online <span class="dot"></span> consultoria</span>
-      <span>1h30 · só sobre você</span>
-    </div>
+    <nav class="hero-nav reveal">
+      <a href="#hero" class="hero-logo">de repente</a>
+      <ul class="hero-navlinks">
+        <li><a href="#o-que-e">a consultoria</a></li>
+        <li><a href="#como-funciona">como funciona</a></li>
+        <li><a href="#para-quem">pra quem é</a></li>
+        <li><a href="#pode-acontecer">o que muda</a></li>
+        <li><a href="#quem-sou">sobre mim</a></li>
+        <li><a href="#depoimentos">depoimentos</a></li>
+        <li><a href="#faq">faq</a></li>
+      </ul>
+      <a href="#investimento" class="hero-nav-cta">quero começar →</a>
+    </nav>
 
     <p class="hero-supratitle reveal">de repente</p>
     <h1 class="hero-bigword reveal">
@@ -1557,11 +1606,8 @@
       </aside>
 
       <div class="hero-ctas reveal">
-        <a href="https://wa.link/r5vztv" target="_blank" rel="noopener" class="btn-primary">
-          quero descobrir meu potencial online
-        </a>
-        <a href="https://wa.link/9yjirf" target="_blank" rel="noopener" class="btn-link">
-          ainda tô em dúvida, quero conversar antes
+        <a href="https://wa.link/r5vztv" target="_blank" rel="noopener" class="btn-primary btn-pill">
+          quero mudar meu jeito de trabalhar
         </a>
       </div>
     </div>
