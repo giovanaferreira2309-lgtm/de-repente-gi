@@ -275,11 +275,25 @@
       vertical-align: middle;
     }
 
+    /* sobretítulo (acima do bigword) */
+    .hero-supratitle {
+      text-align: center;
+      font-family: 'Garet', 'Glacial Indifference', sans-serif;
+      font-weight: 500;
+      font-style: italic;
+      font-size: clamp(1.4rem, 3.4vw, 2.4rem);
+      color: var(--wine);
+      letter-spacing: -0.01em;
+      line-height: 1;
+      margin-top: 8px;
+      margin-bottom: -0.4vw;
+    }
+
     /* palavra-monumento */
     .hero-bigword {
       font-family: 'Garet', 'Glacial Indifference', sans-serif;
       font-weight: 800;
-      font-size: clamp(4rem, 17vw, 16rem);
+      font-size: clamp(4rem, 18vw, 17rem);
       line-height: 0.88;
       letter-spacing: -0.04em;
       color: var(--text);
@@ -295,7 +309,7 @@
       font-weight: 500;
     }
 
-    /* imagem central que "interrompe" a palavra */
+    /* círculo decorativo + imagem central que "interrompe" a palavra */
     .hero-stage {
       position: relative;
       flex: 1;
@@ -305,15 +319,46 @@
       justify-content: flex-start;
       margin-top: -2vw;
     }
+    .hero-circle-wrap {
+      position: relative;
+      width: min(46vw, 520px);
+      aspect-ratio: 1 / 1;
+      margin-top: -16vw;
+      z-index: 2;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .hero-circle-wrap::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: 50%;
+      background: radial-gradient(circle at 30% 30%, var(--nude) 0%, var(--rose) 65%, var(--wine) 100%);
+      box-shadow: 0 30px 80px -30px rgba(74,40,48,0.4);
+      z-index: 1;
+    }
     .hero-image {
-      width: min(58%, 720px);
-      aspect-ratio: 16 / 10;
-      background: url('/consultoria-img-1.jpg') center center / cover no-repeat;
-      margin-top: -7vw;
-      box-shadow: 0 30px 80px -30px rgba(74,40,48,0.35);
       position: relative;
       z-index: 2;
+      width: 102%;
+      height: 102%;
+      background: url('/consultoria-img-1.jpg') center center / cover no-repeat;
+      border-radius: 50%;
+      box-shadow: 0 20px 50px -20px rgba(74,40,48,0.3);
     }
+
+    /* pontinhos decorativos como na referência */
+    .hero-dot {
+      position: absolute;
+      border-radius: 50%;
+      background: var(--rose);
+      z-index: 0;
+    }
+    .hero-dot.d1 { width: 14px; height: 14px; left: 6%;  top: 42%; opacity: 0.55; }
+    .hero-dot.d2 { width: 28px; height: 28px; left: 16%; top: 68%; opacity: 0.35; }
+    .hero-dot.d3 { width: 10px; height: 10px; right: 9%; top: 36%; opacity: 0.55; }
+    .hero-dot.d4 { width: 22px; height: 22px; right: 14%; top: 66%; opacity: 0.4; }
 
     /* colunas laterais com microcopy */
     .hero-flank {
@@ -378,13 +423,14 @@
 
     @media (max-width: 760px) {
       #hero { padding: 20px 18px 0; }
-      .hero-bigword { font-size: clamp(3.6rem, 22vw, 7rem); }
-      .hero-image { width: 88%; margin-top: -10vw; aspect-ratio: 4/3; }
+      .hero-supratitle { font-size: 1.2rem; }
+      .hero-bigword { font-size: clamp(3.6rem, 24vw, 7.5rem); }
+      .hero-circle-wrap { width: 78vw; margin-top: -22vw; }
       .hero-flank { position: static; width: 100%; text-align: left !important; margin: 18px 0 0; }
       .hero-flank.right { text-align: left !important; }
-      .hero-flanks-mobile { display: block; }
       .hero-keywords { flex-wrap: wrap; font-size: 10px; gap: 8px 18px; }
       .hero-keywords span { flex: 0 0 auto; text-align: left !important; }
+      .hero-dot.d2, .hero-dot.d4 { display: none; }
     }
 
     /* ═══════════════════════════════════════════════════════════════
@@ -1476,17 +1522,25 @@
       <span>1h30 · só sobre você</span>
     </div>
 
+    <p class="hero-supratitle reveal">de repente</p>
     <h1 class="hero-bigword reveal">
-      internet<span class="bw-accent">.</span>
+      online<span class="bw-accent">.</span>
     </h1>
 
     <div class="hero-stage">
+      <span class="hero-dot d1" aria-hidden="true"></span>
+      <span class="hero-dot d2" aria-hidden="true"></span>
+      <span class="hero-dot d3" aria-hidden="true"></span>
+      <span class="hero-dot d4" aria-hidden="true"></span>
+
       <aside class="hero-flank left reveal">
         <span class="flank-tag">o que muda</span>
         a internet pode mudar <strong>completamente</strong> a sua vida — o problema é que ninguém nunca te mostrou como.
       </aside>
 
-      <div class="hero-image reveal" role="img" aria-label="Consultoria De Repente Online"></div>
+      <div class="hero-circle-wrap reveal">
+        <div class="hero-image" role="img" aria-label="Consultoria De Repente Online"></div>
+      </div>
 
       <aside class="hero-flank right reveal">
         <span class="flank-tag">o que acontece em 1h30</span>
