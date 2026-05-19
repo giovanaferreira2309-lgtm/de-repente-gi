@@ -882,229 +882,184 @@
     }
 
     /* ═══════════════════════════════════════════════════════════════
-       3.5  PARA QUEM — círculo interativo
+       3.5  PARA QUEM — círculo + lista lateral (estilo editorial)
     ═══════════════════════════════════════════════════════════════ */
     .pq-stage {
       position: relative;
-      margin: 64px auto 56px;
-      width: min(820px, 92vw);
-      aspect-ratio: 1 / 1;
-      max-height: 620px;
+      margin: 56px auto 48px;
+      display: grid;
+      grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.1fr);
+      align-items: center;
+      gap: clamp(20px, 4vw, 60px);
+      min-height: 520px;
     }
 
-    .pq-svg {
+    .pq-circle {
+      position: relative;
+      aspect-ratio: 1 / 1;
+      width: 115%;
+      max-width: 560px;
+      margin-left: -8%;
+      justify-self: start;
+      align-self: center;
+    }
+    .pq-circle::before {
+      content: '';
       position: absolute;
       inset: 0;
-      width: 100%;
-      height: 100%;
-      overflow: visible;
-    }
-    .pq-svg circle.pq-ring {
-      fill: none;
-      stroke: var(--rose);
-      stroke-width: 1.2;
-      stroke-dasharray: 2 8;
-      opacity: 0.55;
-      animation: pq-rotate 90s linear infinite;
-      transform-origin: 50% 50%;
-    }
-    @keyframes pq-rotate {
-      to { transform: rotate(360deg); }
-    }
-
-    .pq-center {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      width: 55%;
-      aspect-ratio: 1 / 1;
-      transform: translate(-50%, -50%);
       border-radius: 50%;
-      overflow: hidden;
-      background: radial-gradient(circle at 30% 30%, var(--nude) 0%, var(--blush) 70%, var(--soft) 100%);
+      border: 1.2px dashed rgba(176,107,117,0.5);
+      animation: pq-rotate 90s linear infinite;
+    }
+    @keyframes pq-rotate { to { transform: rotate(360deg); } }
+
+    .pq-lily-wrap {
+      position: absolute;
+      inset: 4%;
+      border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
       animation: pq-fadein 1.2s ease both;
     }
     @keyframes pq-fadein {
-      from { opacity: 0; transform: translate(-50%, -50%) scale(0.88); }
-      to   { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+      from { opacity: 0; transform: scale(0.9); }
+      to   { opacity: 1; transform: scale(1); }
     }
     .pq-lily {
-      width: 100%;
-      height: 100%;
+      width: 118%;
+      height: 118%;
       object-fit: contain;
-      transform: scale(1.2);
-      transition: transform 0.6s cubic-bezier(.22,.61,.36,1);
+      transform: scale(1) translate(-2%, -2%);
+      transition: transform 0.7s cubic-bezier(.22,.61,.36,1);
       filter:
-        drop-shadow(0 18px 18px rgba(74,40,48,0.25))
-        drop-shadow(0 6px 8px rgba(74,40,48,0.2));
+        drop-shadow(0 22px 22px rgba(74,40,48,0.22))
+        drop-shadow(0 8px 10px rgba(74,40,48,0.18));
     }
     .pq-stage.is-switching .pq-lily {
-      transform: scale(1.24);
+      transform: scale(1.04) translate(-2%, -2%);
     }
 
-    .pq-point {
-      position: absolute;
-      top: 0; left: 0;
-      width: 22px; height: 22px;
-      transform: translate(-50%, -50%);
-      cursor: pointer;
-      background: transparent;
-      border: 0;
+    /* lista vertical à direita */
+    .pq-list {
+      list-style: none;
+      margin: 0;
       padding: 0;
-      z-index: 3;
-    }
-    .pq-point::before {
-      content: '';
-      position: absolute;
-      inset: 6px;
-      border-radius: 50%;
-      background: var(--wine);
-      transition: transform 0.35s ease, background 0.35s ease;
-    }
-    .pq-point::after {
-      content: '';
-      position: absolute;
-      inset: 0;
-      border-radius: 50%;
-      background: var(--rose);
-      opacity: 0.3;
-      transform: scale(0.6);
-      animation: pq-pulse 2.4s ease-out infinite;
-    }
-    @keyframes pq-pulse {
-      0%   { transform: scale(0.6); opacity: 0.35; }
-      70%  { transform: scale(1.6); opacity: 0; }
-      100% { transform: scale(0.6); opacity: 0; }
-    }
-    .pq-point:hover::before,
-    .pq-point.is-active::before {
-      background: var(--rose);
-      transform: scale(1.4);
+      display: flex;
+      flex-direction: column;
+      gap: clamp(14px, 2.6vw, 28px);
     }
 
-    .pq-anchor {
-      position: absolute;
-      top: 0; left: 0;
-      transform: translate(-50%, -50%);
-      font-family: 'Garet', sans-serif;
-      font-style: italic;
-      font-weight: 500;
-      font-size: clamp(0.78rem, 1.3vw, 0.92rem);
-      color: var(--muted);
-      letter-spacing: 0.02em;
-      white-space: nowrap;
-      pointer-events: none;
-      opacity: 0.7;
-      transition: opacity 0.3s ease, color 0.3s ease;
-      z-index: 2;
-    }
-    .pq-anchor.is-active {
-      opacity: 1;
-      color: var(--wine);
+    .pq-item {
+      position: relative;
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 16px;
+      align-items: start;
+      padding: 6px 0;
+      cursor: pointer;
+      transition: transform 0.4s ease;
     }
 
-    .pq-card {
+    /* dot + linha pontilhada saindo do item em direção ao círculo */
+    .pq-item-marker {
+      position: relative;
+      width: 14px;
+      height: 14px;
+      margin-top: 8px;
+      flex-shrink: 0;
+    }
+    .pq-item-marker::before {
+      content: '';
       position: absolute;
       top: 50%;
-      width: clamp(220px, 26vw, 300px);
+      left: 50%;
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: var(--rose);
+      transform: translate(-50%, -50%) scale(0.7);
+      opacity: 0.5;
+      transition: transform 0.4s ease, background 0.4s ease, opacity 0.4s ease;
+      z-index: 2;
+    }
+    .pq-item-marker::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      right: 100%;
+      height: 1px;
+      width: clamp(40px, 8vw, 120px);
+      border-top: 1.2px dashed rgba(176,107,117,0.45);
       transform: translateY(-50%);
-      background: var(--cream, #fdf7f5);
-      border: 1px solid rgba(176,107,117,0.18);
-      border-radius: 18px;
-      padding: 22px 24px;
-      box-shadow: 0 22px 48px -28px rgba(74,40,48,0.35);
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.45s ease, transform 0.45s cubic-bezier(.22,.61,.36,1);
-      z-index: 4;
-    }
-    .pq-card.left  { right: calc(100% - 4%); transform: translate(-12px, -50%); }
-    .pq-card.right { left:  calc(100% - 4%); transform: translate( 12px, -50%); }
-    .pq-card.is-visible { opacity: 1; pointer-events: auto; transform: translate(0, -50%); }
-    .pq-card .pq-card-tag {
-      display: inline-block;
-      font-family: 'Garet', sans-serif;
-      font-style: italic;
-      font-size: 0.78rem;
-      color: var(--rose);
-      letter-spacing: 0.04em;
-      margin-bottom: 10px;
-    }
-    .pq-card p {
-      margin: 0;
-      font-size: clamp(0.95rem, 1.6vw, 1.02rem);
-      color: var(--text);
-      line-height: 1.55;
+      transition: border-color 0.4s ease, width 0.4s ease;
     }
 
-    /* mobile: carrossel */
-    .pq-mobile {
-      display: none;
+    .pq-item-body {
+      min-width: 0;
     }
-    @media (max-width: 760px) {
-      .pq-stage { display: none; }
-      .pq-mobile {
-        display: block;
-        margin: 40px -20px 32px;
+    .pq-item-title {
+      display: block;
+      font-family: 'Garet', sans-serif;
+      font-style: italic;
+      font-weight: 600;
+      font-size: clamp(1.05rem, 1.8vw, 1.3rem);
+      color: var(--muted);
+      letter-spacing: 0.005em;
+      margin-bottom: 6px;
+      transition: color 0.4s ease;
+    }
+    .pq-item-desc {
+      display: block;
+      font-size: clamp(0.92rem, 1.55vw, 1rem);
+      color: var(--text);
+      line-height: 1.55;
+      opacity: 0.65;
+      max-height: 0;
+      overflow: hidden;
+      transition: opacity 0.5s ease, max-height 0.55s cubic-bezier(.22,.61,.36,1), margin 0.5s ease;
+    }
+
+    .pq-item.is-active .pq-item-title { color: var(--wine); }
+    .pq-item.is-active .pq-item-marker::before {
+      background: var(--wine);
+      transform: translate(-50%, -50%) scale(1.15);
+      opacity: 1;
+      box-shadow: 0 0 0 4px rgba(176,107,117,0.18);
+    }
+    .pq-item.is-active .pq-item-marker::after {
+      border-top-color: var(--wine);
+      border-top-style: solid;
+      opacity: 0.65;
+    }
+    .pq-item.is-active .pq-item-desc {
+      opacity: 1;
+      max-height: 200px;
+    }
+
+    .pq-item:hover .pq-item-title { color: var(--wine); }
+    .pq-item:hover .pq-item-marker::before { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+
+    /* ── mobile ── */
+    @media (max-width: 820px) {
+      .pq-stage {
+        grid-template-columns: 1fr;
+        gap: 12px;
+        min-height: 0;
       }
-      .pq-track {
-        display: flex;
-        gap: 16px;
-        overflow-x: auto;
-        scroll-snap-type: x mandatory;
-        scroll-padding: 0 7.5vw;
-        padding: 8px 7.5vw 24px;
-        -webkit-overflow-scrolling: touch;
-        scrollbar-width: none;
+      .pq-circle {
+        width: 78%;
+        max-width: 360px;
+        margin: 0 auto;
+        justify-self: center;
       }
-      .pq-track::-webkit-scrollbar { display: none; }
-      .pq-slide {
-        flex: 0 0 85vw;
-        scroll-snap-align: center;
-        background: var(--cream, #fdf7f5);
-        border: 1px solid rgba(176,107,117,0.18);
-        border-radius: 18px;
-        padding: 26px 24px;
-        box-shadow: 0 18px 40px -26px rgba(74,40,48,0.3);
-        transition: opacity 0.4s ease, transform 0.4s ease;
-      }
-      .pq-slide .pq-card-tag {
-        display: inline-block;
-        font-family: 'Garet', sans-serif;
-        font-style: italic;
-        font-size: 0.82rem;
-        color: var(--rose);
-        letter-spacing: 0.04em;
-        margin-bottom: 12px;
-      }
-      .pq-slide p {
-        margin: 0;
-        font-size: 1.02rem;
-        color: var(--text);
-        line-height: 1.55;
-      }
-      .pq-dots {
-        display: flex;
-        justify-content: center;
-        gap: 8px;
-        margin-top: 8px;
-      }
-      .pq-dot {
-        width: 7px; height: 7px;
-        border-radius: 50%;
-        background: rgba(176,107,117,0.3);
-        border: 0;
-        padding: 0;
-        cursor: pointer;
-        transition: background 0.3s ease, transform 0.3s ease;
-      }
-      .pq-dot.is-active {
-        background: var(--wine);
-        transform: scale(1.3);
-      }
+      .pq-item-marker::after { width: clamp(28px, 6vw, 60px); }
+      .pq-item-desc { opacity: 1; max-height: 200px; }
+    }
+    @media (max-width: 520px) {
+      .pq-circle { width: 72%; }
+      .pq-item-marker::after { display: none; }
+      .pq-item { gap: 12px; }
     }
 
     /* ═══════════════════════════════════════════════════════════════
@@ -1997,82 +1952,50 @@
         <p class="header-sub">passe o mouse nos pontos e descubra</p>
       </div>
 
-      <div class="pq-stage reveal" id="pqStage" aria-hidden="false">
-        <svg class="pq-svg" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
-          <circle class="pq-ring" cx="50" cy="50" r="34"/>
-        </svg>
-
-        <div class="pq-center">
-          <img src="/lirios.png" alt="" class="pq-lily" onerror="this.style.display='none'" />
+      <div class="pq-stage reveal" id="pqStage">
+        <div class="pq-circle" aria-hidden="true">
+          <div class="pq-lily-wrap">
+            <img src="/lirios.png" alt="" class="pq-lily" onerror="this.style.display='none'" />
+          </div>
         </div>
 
-        <!-- 5 pontos: posições em % (top, right-top, right-bottom, left-bottom, left-top) -->
-        <button class="pq-point is-active" type="button" data-index="0" style="top:16%;left:50%;" aria-label="marketing que não te representa"></button>
-        <button class="pq-point" type="button" data-index="1" style="top:36%;left:84%;" aria-label="dinheiro que você não sabe como chegar"></button>
-        <button class="pq-point" type="button" data-index="2" style="top:78%;left:74%;" aria-label="emprego que não escala"></button>
-        <button class="pq-point" type="button" data-index="3" style="top:78%;left:26%;" aria-label="informação demais, direção de menos"></button>
-        <button class="pq-point" type="button" data-index="4" style="top:36%;left:16%;" aria-label="perto, mas travada"></button>
-
-        <span class="pq-anchor is-active" data-index="0" style="top:10%;left:50%;">marketing que não te representa</span>
-        <span class="pq-anchor" data-index="1" style="top:31%;left:92%;">dinheiro que você não sabe como chegar</span>
-        <span class="pq-anchor" data-index="2" style="top:84%;left:80%;">emprego que não escala</span>
-        <span class="pq-anchor" data-index="3" style="top:84%;left:20%;">informação demais, direção de menos</span>
-        <span class="pq-anchor" data-index="4" style="top:31%;left:8%;">perto, mas travada</span>
-
-        <!-- cards (left ou right conforme posição do ponto) -->
-        <div class="pq-card right is-visible" data-index="0">
-          <span class="pq-card-tag">marketing que não te representa</span>
-          <p>você trabalha com marketing mas o seu próprio perfil não reflete nem metade do que você sabe — e isso já te custou oportunidade</p>
-        </div>
-        <div class="pq-card right" data-index="1">
-          <span class="pq-card-tag">dinheiro que você não sabe como chegar</span>
-          <p>você sabe que tem gente ganhando muito dinheiro na internet. só não entende como elas saíram do "quero fazer isso" pro dinheiro caindo na conta</p>
-        </div>
-        <div class="pq-card right" data-index="2">
-          <span class="pq-card-tag">emprego que não escala</span>
-          <p>você tem outro emprego mas sente que poderia estar vendendo muito mais — e que a internet poderia fazer isso por você enquanto você trabalha</p>
-        </div>
-        <div class="pq-card left" data-index="3">
-          <span class="pq-card-tag">informação demais, direção de menos</span>
-          <p>você segue perfis de marketing, assiste reels sobre crescimento, lê thread no X — e ainda não sabe por onde começar</p>
-        </div>
-        <div class="pq-card left" data-index="4">
-          <span class="pq-card-tag">perto, mas travada</span>
-          <p>você sente que está perto. só falta alguém cortar o ruído e te mostrar por onde</p>
-        </div>
-      </div>
-
-      <!-- mobile: carrossel -->
-      <div class="pq-mobile reveal" id="pqMobile">
-        <div class="pq-track" id="pqTrack">
-          <article class="pq-slide" data-index="0">
-            <span class="pq-card-tag">marketing que não te representa</span>
-            <p>você trabalha com marketing mas o seu próprio perfil não reflete nem metade do que você sabe — e isso já te custou oportunidade</p>
-          </article>
-          <article class="pq-slide" data-index="1">
-            <span class="pq-card-tag">dinheiro que você não sabe como chegar</span>
-            <p>você sabe que tem gente ganhando muito dinheiro na internet. só não entende como elas saíram do "quero fazer isso" pro dinheiro caindo na conta</p>
-          </article>
-          <article class="pq-slide" data-index="2">
-            <span class="pq-card-tag">emprego que não escala</span>
-            <p>você tem outro emprego mas sente que poderia estar vendendo muito mais — e que a internet poderia fazer isso por você enquanto você trabalha</p>
-          </article>
-          <article class="pq-slide" data-index="3">
-            <span class="pq-card-tag">informação demais, direção de menos</span>
-            <p>você segue perfis de marketing, assiste reels sobre crescimento, lê thread no X — e ainda não sabe por onde começar</p>
-          </article>
-          <article class="pq-slide" data-index="4">
-            <span class="pq-card-tag">perto, mas travada</span>
-            <p>você sente que está perto. só falta alguém cortar o ruído e te mostrar por onde</p>
-          </article>
-        </div>
-        <div class="pq-dots" id="pqDots">
-          <button class="pq-dot is-active" data-index="0" aria-label="card 1"></button>
-          <button class="pq-dot" data-index="1" aria-label="card 2"></button>
-          <button class="pq-dot" data-index="2" aria-label="card 3"></button>
-          <button class="pq-dot" data-index="3" aria-label="card 4"></button>
-          <button class="pq-dot" data-index="4" aria-label="card 5"></button>
-        </div>
+        <ul class="pq-list" id="pqList">
+          <li class="pq-item is-active" data-index="0">
+            <span class="pq-item-marker" aria-hidden="true"></span>
+            <div class="pq-item-body">
+              <span class="pq-item-title">marketing que não te representa</span>
+              <span class="pq-item-desc">você trabalha com marketing mas o seu próprio perfil não reflete nem metade do que você sabe — e isso já te custou oportunidade</span>
+            </div>
+          </li>
+          <li class="pq-item" data-index="1">
+            <span class="pq-item-marker" aria-hidden="true"></span>
+            <div class="pq-item-body">
+              <span class="pq-item-title">dinheiro que você não sabe como chegar</span>
+              <span class="pq-item-desc">você sabe que tem gente ganhando muito dinheiro na internet. só não entende como elas saíram do "quero fazer isso" pro dinheiro caindo na conta</span>
+            </div>
+          </li>
+          <li class="pq-item" data-index="2">
+            <span class="pq-item-marker" aria-hidden="true"></span>
+            <div class="pq-item-body">
+              <span class="pq-item-title">emprego que não escala</span>
+              <span class="pq-item-desc">você tem outro emprego mas sente que poderia estar vendendo muito mais — e que a internet poderia fazer isso por você enquanto você trabalha</span>
+            </div>
+          </li>
+          <li class="pq-item" data-index="3">
+            <span class="pq-item-marker" aria-hidden="true"></span>
+            <div class="pq-item-body">
+              <span class="pq-item-title">informação demais, direção de menos</span>
+              <span class="pq-item-desc">você segue perfis de marketing, assiste reels sobre crescimento, lê thread no X — e ainda não sabe por onde começar</span>
+            </div>
+          </li>
+          <li class="pq-item" data-index="4">
+            <span class="pq-item-marker" aria-hidden="true"></span>
+            <div class="pq-item-body">
+              <span class="pq-item-title">perto, mas travada</span>
+              <span class="pq-item-desc">você sente que está perto. só falta alguém cortar o ruído e te mostrar por onde</span>
+            </div>
+          </li>
+        </ul>
       </div>
 
       <p class="fechamento-centro reveal">se você se viu em qualquer um desses, o problema não é você. é que ninguém ainda parou pra te dar direção de verdade.</p>
@@ -2353,60 +2276,34 @@
     /* Dispara após 8s */
     setTimeout(showPopup, 8000);
 
-    /* ── Para Quem: pontos interativos ── */
+    /* ── Para Quem: lista lateral interativa ── */
     (function(){
       const stage = document.getElementById('pqStage');
       if (!stage) return;
-      const points  = stage.querySelectorAll('.pq-point');
-      const anchors = stage.querySelectorAll('.pq-anchor');
-      const cards   = stage.querySelectorAll('.pq-card');
+      const items = stage.querySelectorAll('.pq-item');
       let active = 0;
 
       function setActive(i){
         if (i === active) return;
         active = i;
         stage.classList.add('is-switching');
-        points.forEach(p => p.classList.toggle('is-active', +p.dataset.index === i));
-        anchors.forEach(a => a.classList.toggle('is-active', +a.dataset.index === i));
-        cards.forEach(c => c.classList.toggle('is-visible', +c.dataset.index === i));
-        setTimeout(() => stage.classList.remove('is-switching'), 300);
+        items.forEach(it => it.classList.toggle('is-active', +it.dataset.index === i));
+        setTimeout(() => stage.classList.remove('is-switching'), 400);
       }
 
-      points.forEach(p => {
-        p.addEventListener('mouseenter', () => setActive(+p.dataset.index));
-        p.addEventListener('focus',      () => setActive(+p.dataset.index));
-        p.addEventListener('click',      () => setActive(+p.dataset.index));
+      items.forEach(it => {
+        it.addEventListener('mouseenter', () => setActive(+it.dataset.index));
+        it.addEventListener('click',      () => setActive(+it.dataset.index));
       });
-    })();
 
-    /* ── Para Quem: carrossel mobile ── */
-    (function(){
-      const track = document.getElementById('pqTrack');
-      const dots  = document.querySelectorAll('#pqDots .pq-dot');
-      if (!track || !dots.length) return;
-
-      const slides = track.querySelectorAll('.pq-slide');
-
-      function syncDots() {
-        const center = track.scrollLeft + track.clientWidth / 2;
-        let closest = 0, min = Infinity;
-        slides.forEach((s, i) => {
-          const sCenter = s.offsetLeft + s.offsetWidth / 2;
-          const d = Math.abs(sCenter - center);
-          if (d < min) { min = d; closest = i; }
-        });
-        dots.forEach((d, i) => d.classList.toggle('is-active', i === closest));
-      }
-
-      track.addEventListener('scroll', () => {
-        window.requestAnimationFrame(syncDots);
-      }, { passive: true });
-
-      dots.forEach((d, i) => {
-        d.addEventListener('click', () => {
-          slides[i].scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
-        });
-      });
+      /* auto-rotação suave enquanto não há hover */
+      let idle = true;
+      stage.addEventListener('mouseenter', () => idle = false);
+      stage.addEventListener('mouseleave', () => idle = true);
+      setInterval(() => {
+        if (!idle) return;
+        setActive((active + 1) % items.length);
+      }, 4200);
     })();
 
     /* Dispara ao rolar 60% */
